@@ -1,0 +1,5199 @@
+<template>
+    <div>
+      <div ref="mapContainer" class="map-container"></div>
+    </div>
+  </template>
+  
+  <script setup>
+  import { onMounted, ref } from 'vue'
+  import { useHead } from '#imports'
+  
+  // Используем useHead для добавления скрипта 2ГИС
+  useHead({
+    script: [
+      {
+        src: 'https://maps.api.2gis.ru/2.0/loader.js?pkg=full',
+        defer: true,
+      },
+    ],
+  })
+  
+  // Ссылка на контейнер для карты
+  const mapContainer = ref(null)
+  let map = null
+  
+  onMounted(() => {
+    // Убедимся, что скрипт DG доступен перед инициализацией карты
+    const checkScriptLoaded = () => {
+      if (typeof DG !== 'undefined') {
+        initMap()
+      } else {
+        const script = document.querySelector('script[src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"]')
+        if (script) {
+          script.addEventListener('load', initMap)
+        } else {
+          console.error('Скрипт 2ГИС не найден.')
+        }
+      }
+    }
+  
+    // Попробуем инициализировать карту после небольшой задержки, если скрипт не сразу доступен
+    setTimeout(checkScriptLoaded, 500)
+  })
+  
+  function initMap() {
+    map = DG.map(mapContainer.value, {
+      center: [49.806, 73.086], // Координаты Караганды
+      zoom: 13,
+    })
+    addGeoJSONData()
+  }
+  
+  // Функция для добавления GeoJSON данных на карту
+  function addGeoJSONData() {
+    const geojsonData = {
+    "type": "FeatureCollection",
+    "metadata": {
+      "name": "3 блок",
+      "creator": "Yandex Map Constructor"
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "id": 0,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                73.13935522984647,
+                49.79402586223997
+              ],
+              [
+                73.12366967152721,
+                49.7832733141794
+              ],
+              [
+                73.13334554428151,
+                49.777253847064756
+              ],
+              [
+                73.12525446452108,
+                49.77169223346662
+              ],
+              [
+                73.13591265440671,
+                49.764663645475096
+              ],
+              [
+                73.144202908102,
+                49.770322167576275
+              ],
+              [
+                73.15429560625539,
+                49.76377793804286
+              ],
+              [
+                73.16399447405327,
+                49.770699318920215
+              ],
+              [
+                73.13597075426567,
+                49.788429084991215
+              ],
+              [
+                73.14174286806579,
+                49.79234653866296
+              ],
+              [
+                73.13935522984647,
+                49.79402586223997
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "fill": "#b3b3b3",
+          "fill-opacity": 0.6,
+          "stroke": "#ffd21e",
+          "stroke-width": "5",
+          "stroke-opacity": 0.9
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 1,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                73.13631407701885,
+                49.788408246881374
+              ],
+              [
+                73.15178318501086,
+                49.77863680521173
+              ],
+              [
+                73.16865078890243,
+                49.78979050597806
+              ],
+              [
+                73.15352313005842,
+                49.79955548791761
+              ],
+              [
+                73.13631407701885,
+                49.788408246881374
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "fill": "#b3b3b3",
+          "fill-opacity": 0.6,
+          "stroke": "#1bad03",
+          "stroke-width": "5",
+          "stroke-opacity": 0.9
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15133641104498,
+            49.795055120210556
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.153299,
+            49.793678
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 70",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13463075463069,
+            49.76588959830427
+          ]
+        },
+        "properties": {
+          "description": "Караганда, Университетская улица, 11",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 5,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13438130919167,
+            49.766045959104034
+          ]
+        },
+        "properties": {
+          "description": "Караганда, Университетская улица, 11",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 6,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13412381712635,
+            49.76620405649452
+          ]
+        },
+        "properties": {
+          "description": "Караганда, Университетская улица, 11",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 7,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13502235714635,
+            49.76579230706117
+          ]
+        },
+        "properties": {
+          "description": "Караганда, Университетская улица, 11",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 8,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13955386871652,
+            49.767405407078265
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Муканова, 1/6",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 9,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13134322090085,
+            49.769543093843204
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Карбышева, 2",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 10,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13023440740915,
+            49.768919218710025
+          ]
+        },
+        "properties": {
+          "description": "Караганда, Университетская улица, 19",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 11,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14320021097338,
+            49.7727351998554
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 1",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 12,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1435301226836,
+            49.772533695796895
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 1",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 13,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14415775959233,
+            49.772149794520544
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 1",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14257985152021,
+            49.773105431844705
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 11/1",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 15,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14285880125769,
+            49.772936934515194
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 11/1",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 16,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14306407605692,
+            49.773522987510916
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 5",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 17,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14332693254042,
+            49.77371059038621
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 5",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 18,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14399825033165,
+            49.77372140601129
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 7",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 19,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14375148710234,
+            49.77387947825752
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 7",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 20,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14544275959362,
+            49.7744518785286
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 4",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 21,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14515844543797,
+            49.774252119132434
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 4",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 22,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14486072023728,
+            49.774048884793125
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 4",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 23,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14458445270868,
+            49.773838701510975
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 4",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 24,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13807390310967,
+            49.775829408876895
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 25",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 25,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13708984424878,
+            49.776695457961935
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 31",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 26,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.144549,
+            49.776118
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 10",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 27,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14480112764682,
+            49.77585224240983
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 10",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 28,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14423786375369,
+            49.77631948878609
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 10",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 29,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14439432142518,
+            49.77742858885583
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 30,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14536259887907,
+            49.77715415375679
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 31,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14462499140078,
+            49.777947927339106
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "8",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 32,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14469472883512,
+            49.77725315876264
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 33,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14405636308942,
+            49.77781939595096
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 34,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14499781845414,
+            49.77706904343583
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 35,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14412610052422,
+            49.777602281087276
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 36,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14427362201987,
+            49.777973981016245
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 11/2",
+          "iconContent": "7",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 37,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13911965641309,
+            49.792542819509684
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 38,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1390579656046,
+            49.79314360431797
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 39,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13880852016649,
+            49.792992540626855
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 40,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14020595106376,
+            49.79239522683085
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "11",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 41,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1400128320146,
+            49.79226499761415
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "10",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 42,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13974997553193,
+            49.792162550198114
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "9",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 43,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13941469940428,
+            49.793138395027896
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 44,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13869854959783,
+            49.7928102217126
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 45,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13937446626983,
+            49.7923865446724
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "7",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 46,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1389023974835,
+            49.79268693883786
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 47,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14014694246603,
+            49.79265915687745
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/2",
+          "iconContent": "12",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 48,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14414362698218,
+            49.78511874818969
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 5",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 49,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15094469080695,
+            49.780235421090445
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 7/46",
+          "iconContent": "10",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 50,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15420469080723,
+            49.782330475309706
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/30",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 51,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14278292757716,
+            49.788775000230636
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 52,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14298409325357,
+            49.78923170214941
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 53,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14274537665082,
+            49.789033740693746
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 54,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14327913624514,
+            49.78942619002806
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 55,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14357686144572,
+            49.789618940604804
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 56,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14447540146517,
+            49.79023538988136
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 57,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14388799769166,
+            49.78986378479237
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "6",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 58,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14419913393628,
+            49.79004958788062
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "7",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 59,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14474362236659,
+            49.7904350831976
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 19",
+          "iconContent": "9",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 60,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.133851,
+            49.788897
+          ]
+        },
+        "properties": {
+          "description": "Караганда, район имени Казыбек би, жилой район Юго-Восток, микрорайон Орбита, 41",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 61,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.148116,
+            49.788705
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/7",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 62,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15574140873629,
+            49.77127640863985
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "19",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 63,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1538568392862,
+            49.78749784622408
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 24",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 64,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15385147486798,
+            49.7872564631844
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 32",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 65,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15256853603618,
+            49.78883604806422
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 7",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 66,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15591281845371,
+            49.76933075912866
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 3/2",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 67,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15491927976211,
+            49.78800726914882
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 25",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 68,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.126053,
+            49.783366
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 3",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 69,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.135548,
+            49.787368
+          ]
+        },
+        "properties": {
+          "description": "Караганда, район имени Казыбек би, жилой район Юго-Восток, микрорайон Орбита, 31",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 70,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15626955225295,
+            49.76929948905384
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 3/2",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 71,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14984434722062,
+            49.789887331757896
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/10",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 72,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15011793254037,
+            49.78987343982772
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/10",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 73,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.153892,
+            49.780923
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/37",
+          "iconContent": "9",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 74,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.153748,
+            49.780824
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/38",
+          "iconContent": "10",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 75,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.158096,
+            49.794637
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 9",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 76,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15734450793403,
+            49.795181844341016
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 10",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 77,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16278333498738,
+            49.78958255448743
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 16",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 78,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16252852513044,
+            49.78940195939722
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 16",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 79,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1629925472897,
+            49.78971973715425
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 16",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 80,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.136123,
+            49.769858
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Карбышева, 15/2",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 81,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.141019,
+            49.774006
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Строителей, 13",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 82,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.154021817126,
+            49.766063481189164
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 12",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 83,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15385015574971,
+            49.76615729715979
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 12",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 84,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1542283472205,
+            49.76592275668891
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 12",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 85,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15441073743263,
+            49.765830677735785
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 12",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 86,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14569,
+            49.784651
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 4/1",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 87,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15631830919116,
+            49.76720838242557
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 9",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 88,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.153955,
+            49.781487
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/34",
+          "iconContent": "6",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 89,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15295580125748,
+            49.76871663385205
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 35",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 90,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.156389,
+            49.790485
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 91,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15682888227799,
+            49.790498891829024
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 92,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15721512037588,
+            49.79043637939104
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 93,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15753698545717,
+            49.790509310679255
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 94,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15609556812267,
+            49.79024645872773
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 2",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 95,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15582198280308,
+            49.79005544720937
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 2",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 96,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15599054232666,
+            49.789215533854794
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 3",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 97,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1555265201675,
+            49.789621873593084
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 3",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 98,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1555479778392,
+            49.7898875555122
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 3",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 99,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15620780125762,
+            49.78908008638034
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 3",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 100,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.155767918979,
+            49.789345771160704
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 3",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 101,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15725944907356,
+            49.788647694877575
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 4",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 102,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15685711772102,
+            49.788682425382646
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 4",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 103,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15658621461051,
+            49.788847394684154
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 4",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 104,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13254799999973,
+            49.77482462313461
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Язева, 10",
+          "iconContent": "11",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 105,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16240447850215,
+            49.79030434392893
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 17",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 106,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16208797783936,
+            49.79050229987373
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 17",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 107,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16080030555598,
+            49.79424882636064
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 13",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 108,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15393562698345,
+            49.795530109863066
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 74",
+          "iconContent": "7",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 109,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15267672750758,
+            49.79322654948638
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 70",
+          "iconContent": "6",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 110,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.129736,
+            49.783959
+          ]
+        },
+        "properties": {
+          "description": "Караганда, район имени Казыбек би, жилой район Юго-Восток, микрорайон Орбита, 4",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 111,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15916677909819,
+            49.79527775955934
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 11",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 112,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14602586375388,
+            49.77644295737597
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 7",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 113,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16055830555675,
+            49.79444837927841
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 12",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 114,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16066619510572,
+            49.79416201019779
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 13",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 115,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15164218287224,
+            49.795270420124204
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "6",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 116,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15375198776546,
+            49.773704677236765
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 8",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 117,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15440417790866,
+            49.77383363802609
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 6",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 118,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15593184557382,
+            49.77223356879687
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "14",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 119,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15589965906739,
+            49.77156824892515
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "18",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 120,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15522106018707,
+            49.77227178474401
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 121,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15486164417915,
+            49.77227699592568
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 122,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15444321957345,
+            49.772466340745346
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 123,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15502257672091,
+            49.77299789219432
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "8",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 124,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1547033938476,
+            49.77288324443798
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "7",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 125,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15567435351008,
+            49.77109227078136
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "20",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 126,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15576700037231,
+            49.770865033721975
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "21",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 127,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15496595469915,
+            49.76549710612633
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 12",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 128,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15514565277826,
+            49.76477938361624
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 19",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 129,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15526635218383,
+            49.765095586314665
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 19",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 130,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1540084123719,
+            49.76719333895743
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 29",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 131,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15353097916709,
+            49.767492152873714
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 29",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 132,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15288188458528,
+            49.76789346411717
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 29",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 133,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15573847486543,
+            49.76909449757677
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 3/2",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 134,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15567410185227,
+            49.76926648173741
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 3/2",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 135,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15528238161404,
+            49.77023103987835
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 5",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 136,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15390372618015,
+            49.76977242048706
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 5",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 137,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15424973114317,
+            49.76985754338042
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 5",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 138,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15673643187637,
+            49.7688538058258
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 139,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15666401223294,
+            49.769060536483344
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 140,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1569912417327,
+            49.768242294865715
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 141,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1570717080032,
+            49.7680286116823
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "7",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 142,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15687054232728,
+            49.7677593346053
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "9",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 143,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15712535218387,
+            49.76784098642691
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "8",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 144,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15563166368413,
+            49.76669935156219
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 9",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 145,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14361738657709,
+            49.777964254028035
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 13",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 146,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1394186269823,
+            49.78054926213068
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 27",
+          "iconContent": "3",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 147,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13870106018638,
+            49.780831635535655
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 29",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 148,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1381431607126,
+            49.781231098580975
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 29",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 149,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14679297553222,
+            49.77604692822769
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сатыбалдина, 7",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 150,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15391977546125,
+            49.78207205673196
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/31",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 151,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15398086871649,
+            49.781319947339654
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/35",
+          "iconContent": "7",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 152,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15398545767091,
+            49.78108815888581
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 4/36",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 153,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15061144907334,
+            49.78059552909808
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 7/45",
+          "iconContent": "12",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 154,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15062014351543,
+            49.78046294497448
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 7/46",
+          "iconContent": "11",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 155,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15235272023571,
+            49.77987936918371
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-1, 5/48",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 156,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13873610681429,
+            49.7820944592018
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 31",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 157,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13907406515062,
+            49.782228189321195
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 31",
+          "iconContent": "6",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 158,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1387682933225,
+            49.78192078301201
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 31",
+          "iconContent": "4",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 159,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1509336061509,
+            49.7902263178454
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 6/3",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 160,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14696105522486,
+            49.787879269120154
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/4",
+          "iconContent": "16",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 161,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14669473743433,
+            49.78769405926734
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/3",
+          "iconContent": "15",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 162,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14675041964294,
+            49.786992234888764
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/2",
+          "iconContent": "12",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 163,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14675041964284,
+            49.787224936411796
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/2",
+          "iconContent": "13",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 164,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14657071163772,
+            49.78750973398884
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/2",
+          "iconContent": "14",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 165,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14648022453454,
+            49.786638912395034
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 3/1\nподъезд 11а",
+          "iconContent": "11",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 166,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14740945403628,
+            49.78632063414576
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 2",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 167,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14667452876606,
+            49.7864248304345
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 2",
+          "iconContent": "10",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 168,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15187530059325,
+            49.78927498097711
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 6/1",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 169,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15197,
+            49.775251
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Муканова, 11",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 170,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15075437168436,
+            49.7946314643561
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 171,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15106282572478,
+            49.79485718276401
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 172,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15196673016291,
+            49.79549092763878
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "7",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 173,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15224299769113,
+            49.795678445114326
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сарыарка, 31",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 174,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15327580356457,
+            49.795912089203554
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 74",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 175,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15614926256521,
+            49.78383594421399
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 10",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 176,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15639870800194,
+            49.78366574814747
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 10",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 177,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15448661474922,
+            49.78391221882094
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 15",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 178,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15240558895297,
+            49.785349611876704
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 19",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 179,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15688448710208,
+            49.786529589823736
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 2",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 180,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15462155456066,
+            49.78779541035725
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 25",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 181,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1549785300935,
+            49.78822871201303
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 26",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 182,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15409458895479,
+            49.78829680216684
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 27",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 183,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15302935581947,
+            49.78756874202301
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 28",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 184,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15275833498737,
+            49.7873652046244
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 29",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 185,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15252766501213,
+            49.7872123862751
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 29",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 186,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15787248710211,
+            49.78647209814329
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 3",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 187,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.157531846557,
+            49.78667875337377
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 3",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 188,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15771155456086,
+            49.78609872760926
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 4",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 189,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15740601719622,
+            49.785881572106035
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 5",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 190,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15709488095054,
+            49.785669703716295
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 5",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 191,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15635013988084,
+            49.78441732969918
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 8",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 192,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14925664417976,
+            49.78190094723253
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 1",
+          "iconContent": "5",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 193,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14941221230264,
+            49.78225177274601
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 1",
+          "iconContent": "3",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 194,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14917886011774,
+            49.78240113368482
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 1",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 195,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14499489814725,
+            49.784088204309555
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 4/3",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 196,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1446673693803,
+            49.78427886232254
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 4/4",
+          "iconContent": "9",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 197,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14601232869641,
+            49.78600149779197
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 9",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 198,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14627518517936,
+            49.78585214848516
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 9",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 199,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14470009325375,
+            49.78548110698259
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 6",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 200,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14530918650806,
+            49.785901053559996
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 8",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 201,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15215693254017,
+            49.789097857526826
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 6/1",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 202,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15160707969223,
+            49.78943300208679
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 6/1",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 203,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14841979496622,
+            49.78186968566229
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 1",
+          "iconContent": "8",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 204,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15506148710232,
+            49.77405153392172
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 16",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 205,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15524924173273,
+            49.77393688874165
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 16",
+          "iconContent": "2",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 206,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.161348957008,
+            49.793770270813916
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 15",
+          "iconContent": "2",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 207,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.135054,
+            49.788281
+          ]
+        },
+        "properties": {
+          "description": "Караганда, район имени Казыбек би, жилой район Юго-Восток, микрорайон Орбита, 36",
+          "iconContent": "1",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 208,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15691345767175,
+            49.76842991826095
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 7",
+          "iconContent": "5",
+          "marker-color": "#1bad03"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 209,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1460131742741,
+            49.78426788158223
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-2, 4/2",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 210,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15787290310986,
+            49.79552562802281
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 10",
+          "iconContent": "4",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 211,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13837578769565,
+            49.79521747112964
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 212,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13861986871633,
+            49.79466880158004
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 213,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13778838392189,
+            49.79485632212985
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "7",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 214,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13806196924129,
+            49.79466706518211
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 215,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13836774106936,
+            49.79450906114571
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 216,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13889613624498,
+            49.79485458585992
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 217,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1386761951059,
+            49.79501606134313
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 15",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 218,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.139645,
+            49.7953
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 17",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 219,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13960744907308,
+            49.79568718977082
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 17",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 220,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13989980985579,
+            49.79551008998195
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 17",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 221,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13934727479857,
+            49.79516109738969
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 17",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 222,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13906027843393,
+            49.7953173630332
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 17",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 223,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13848355952359,
+            49.79680980368905
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 224,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1387464160072,
+            49.79703377663603
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 225,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13850233498728,
+            49.797214342983565
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 226,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13831458035594,
+            49.79733240550133
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 227,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13799003306528,
+            49.7975077622351
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 228,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13773522320832,
+            49.79737928317199
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Бауыржана Момышулы, 15/2",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 229,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14975314847887,
+            49.78642583227479
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "7",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 230,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14972632638884,
+            49.7866897951077
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "8",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 231,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14969950429865,
+            49.78689123957703
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "9",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 232,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14982020370418,
+            49.78710310264639
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "10",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 233,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1507482480229,
+            49.78710831249151
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 234,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15098964683455,
+            49.786892976157326
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 235,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15098964683459,
+            49.78668805857801
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 236,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15088504068265,
+            49.78639804676672
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 237,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15057658664641,
+            49.786378944034354
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 238,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1502037595936,
+            49.78639630998336
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-3, 1/10",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 239,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15293195337259,
+            49.786047535595436
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 23/2",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 240,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15269055456149,
+            49.78614304925409
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 23/2",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 241,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15191540244662,
+            49.78600985234944
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 23/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 242,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15215948346685,
+            49.78610536626832
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Степной-4, 23/1",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 243,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16110219377818,
+            49.793923068421165
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Таттимбета, 15",
+          "iconContent": "1",
+          "marker-color": "#ffd21e"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 244,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.167861,
+            49.792893
+          ]
+        },
+        "properties": {
+          "description": "Караганда, район имени Казыбек би, 3-я улица, 1/2",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 245,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15929904662656,
+            49.785829473376126
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 53/8",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 246,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15957263194555,
+            49.78566970389037
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 53/8",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 247,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15903082572483,
+            49.78568359680694
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 53/8",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 248,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15584987235178,
+            49.791313387434386
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1/4",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 249,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.156102,
+            49.791171
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1/4",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 250,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15587401223277,
+            49.790790720227015
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1/4",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 251,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15604835581942,
+            49.791000829557284
+          ]
+        },
+        "properties": {
+          "description": "Караганда, микрорайон Гульдер-1, 1/4",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 252,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16818518154408,
+            49.79314841918205
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 253,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16872162334793,
+            49.79346443552578
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 254,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16795719377875,
+            49.793296009356524
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 255,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1670747470125,
+            49.79377003208076
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 256,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16728395931528,
+            49.79389852104481
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 257,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16757900230719,
+            49.79407389031186
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 258,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16782308332789,
+            49.793931511246605
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 259,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16806179992948,
+            49.79378565928797
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 260,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16858483068793,
+            49.79337414537743
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 261,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.16842389814556,
+            49.793249128323026
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Сабита Муканова, 78",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 262,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13755044907361,
+            49.79390869137257
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 13",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 263,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1377918478846,
+            49.79413441431636
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 13",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 264,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13752362698328,
+            49.794304573843526
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 13",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 265,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1372339484097,
+            49.79376283932739
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 13",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 266,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13694963425421,
+            49.79393300008657
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Байкена Ашимова, 13",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 267,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17681530684152,
+            49.83049321404452
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 268,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17657927244836,
+            49.830625074925095
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 269,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1763405558456,
+            49.83078469560495
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 270,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17659804791138,
+            49.83096340047828
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 271,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17683676451327,
+            49.83112995989071
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 272,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17717740505813,
+            49.83133295345338
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 273,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17737857073465,
+            49.83146654691979
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 274,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17756364315665,
+            49.8316157548214
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 275,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17779163092274,
+            49.83150818642099
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 276,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17799011439011,
+            49.831367652960964
+          ]
+        },
+        "properties": {
+          "description": "Караганда, ​067-й учетный квартал, ст502",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 277,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13862749570056,
+            49.793650890867625
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 278,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13871332638914,
+            49.79359880051784
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 279,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13813665145047,
+            49.793322721131105
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 280,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.13822516434803,
+            49.79326542141576
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Камали Дюсембекова, 83/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 281,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14356117790928,
+            49.78710216141685
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 46/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 282,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14338951653279,
+            49.78720635573128
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 46/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 283,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.14353972023711,
+            49.78696323482727
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 46/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 284,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1433734232782,
+            49.78686251280193
+          ]
+        },
+        "properties": {
+          "description": "Караганда, проспект Шахтёров, 46/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 285,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17734832067042,
+            49.830149680191
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 286,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17740732926835,
+            49.830378703187506
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 287,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17767286796119,
+            49.8305469995175
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 288,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17804569501456,
+            49.830812455505395
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 289,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17830050487079,
+            49.83098595545871
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 290,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17858481902609,
+            49.83108485016254
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/1",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 291,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17783111829294,
+            49.82986166499724
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 292,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17801082629656,
+            49.8300542536687
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 293,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17824417848169,
+            49.83022255116787
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 294,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17859823007169,
+            49.830461983793974
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 295,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17880207795643,
+            49.83062160498657
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 296,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1791293074562,
+            49.83073958540516
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/2",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 297,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1796550204233,
+            49.83041340341179
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 298,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17938679952182,
+            49.83028848202433
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 299,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17917758721875,
+            49.830142740040806
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 300,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.18020219106239,
+            49.83008027902483
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 301,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17995006341475,
+            49.82996576711121
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 302,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17971939343971,
+            49.829809613841434
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 303,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17879403132922,
+            49.82988769055967
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 304,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17856336135394,
+            49.82972633203769
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 305,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17841852206737,
+            49.82952159670225
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/3",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 306,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1793224265052,
+            49.82955976770195
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 307,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17910248536633,
+            49.8293932028065
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 308,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1789469172431,
+            49.82918673115115
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/4",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 309,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1794940878823,
+            49.82885880345244
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "1",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 310,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.1796764780952,
+            49.82908089225835
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "2",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 311,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.17989105481641,
+            49.829230107577935
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "3",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 312,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.18027192849658,
+            49.82949730592889
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "4",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 313,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.18048114079961,
+            49.82965346015003
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "5",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 314,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.18074936170119,
+            49.82975756267493
+          ]
+        },
+        "properties": {
+          "description": "Караганда, 067-й учетный квартал, 456/5",
+          "iconContent": "6",
+          "marker-color": "#b51eff"
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 315,
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            73.15590234127714,
+            49.772455918312474
+          ]
+        },
+        "properties": {
+          "description": "Караганда, улица Гапеева, 1",
+          "iconContent": "13",
+          "marker-color": "#1bad03"
+        }
+      }
+    ]
+  }
+  
+    // Добавляем данные GeoJSON на карту
+    DG.geoJson(geojsonData).addTo(map)
+  }
+  </script>
+  
+  <style scoped>
+  .map-container {
+    width: 100%;
+    height: 500px; /* Установите желаемую высоту карты */
+  }
+  </style>
+  
