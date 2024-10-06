@@ -26,11 +26,9 @@
               <div class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">A4</div>
               <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
               <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
-          
               <div class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">A5</div>
               <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
               <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
-
             </div>
           </div>
         </div>
@@ -38,12 +36,12 @@
         <!-- Информация о ценах и описаниях модулей -->
         <div class="lg:w-1/2 flex flex-col space-y-8">
           <div v-for="(module, index) in adModules" :key="index" class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-            <div class="w-full flex justify-between items-center">
-              <div>
+            <div class="w-full flex flex-col sm:flex-row justify-between items-center">
+              <div class="mb-4 sm:mb-0">
                 <h3 class="text-2xl font-bold text-custom-green">{{ module.name }}</h3>
                 <p class="text-gray-700 mt-1">{{ module.size }}</p>
               </div>
-              <p class="text-2xl font-bold text-black">{{ module.price }} ₸/МЕС</p>
+              <p class="text-2xl font-bold text-black mt-4 sm:mt-0">{{ module.price }} ₸/МЕС</p>
             </div>
           </div>
         </div>
