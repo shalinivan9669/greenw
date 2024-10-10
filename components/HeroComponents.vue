@@ -1,27 +1,28 @@
 <template>
   <section class="bg-[#efefef] py-12">
     <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
-      <!-- Текстовая часть -->
-      <div class="text-center lg:text-left lg:w-1/2">
-        <h2 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
-          Мы предлагаем эффективную рекламу в 300 лифтах жилых домов Караганды от собственника рекламных стендов
-        </h2>
-        <p class="text-gray-700 mt-4 text-lg">Наши цели совпадают</p>
+   <!-- Текстовая часть -->
+   <div class="text-center lg:text-left lg:w-1/2">
+        <h1 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
+          Эффективная реклама в лифтах Караганды от GREENWAY
+        </h1>
+        <p class="text-gray-700 mt-4 text-lg">
+          Разместите свою рекламу в 300 лифтах жилых домов и привлеките новых клиентов уже сегодня!
+        </p>
 
         <!-- Кнопки -->
         <div class="flex justify-center lg:justify-start space-x-4 mt-8">
-          <button @click="openOrderModal" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
-            Сделать заказ
+          <button @click="openOrderModal" class="bg-custom-green  text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+            Заказать рекламу
           </button>
-          <a href="#video" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
-            Посмотреть видео
+          <a href="https://www.tiktok.com/@greenway_reklama" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+            Смотреть видео
           </a>
         </div>
       </div>
-
       <!-- Изображение -->
       <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
-        <img :src="logo" alt="Лифт с рекламой" class="w-full h-auto lg:max-w-md">
+        <img :src="logo" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md">
       </div>
     </div>
 
@@ -93,7 +94,7 @@ const phoneError = ref('');
 
 // Статистика
 const stats = ref([
-  { value: 200, label: 'лифтов' },
+  { value: 300, label: 'лифтов' },
   { value: 150, label: 'жилых домов' },
   { value: 36000, label: 'ежедневный охват аудитории' },
   { value: 1080000, label: 'ежемесячный охват аудитории' }

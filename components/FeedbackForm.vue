@@ -1,27 +1,78 @@
 <template>
-  <div class="w-full bg-gradient-to-r from-green-400 via-[#a8cc55] to-green-600 py-16">
-    <div class="container mx-auto px-6 lg:px-8">
-      <div class="text-center mb-8">
-        <h2 class="text-4xl font-bold text-white mb-4">Свяжитесь с нами</h2>
-        <p class="text-lg text-white">Заполните форму ниже, и мы свяжемся с вами как можно скорее</p>
+  <div class="w-full bg-gradient-to-r from-green-400 via-[#a8cc55] to-green-600 py-16 shadow-custom-top border-custom relative">
+    <div class="container mx-auto px-6 lg:px-8 flex flex-col lg:flex-row justify-center items-start lg:space-x-8 relative">
+      <!-- Блок с текстом "Мы вам перезвоним" -->
+      <div class="absolute top-[-56px] left-1/2 transform -translate-x-1/2 -translate-y-1/3 bg-white w-full max-w-lg h-auto p-8 rounded-3xl self-center justify-self-center z-10 shadow-consultation">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4 text-center">Мы вам перезвоним</h2>
+        <p class="text-lg mt-4 text-gray-700 text-center">
+          Заполните имя и номер телефона, остальное по желанию<br />
+        </p>
       </div>
-      <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8">
+
+      <!-- Форма для контактов -->
+      <div class="mt-56 max-w-lg bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2">
         <form @submit.prevent="submitLead">
           <div class="mb-6">
             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Имя:</label>
-            <input v-model="leadData.name" type="text" id="name" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#a8cc55]" />
+            <input
+              v-model="leadData.name"
+              type="text"
+              id="name"
+              required
+              class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#a8cc55]"
+            />
           </div>
 
           <div class="mb-6">
             <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон:</label>
-            <input v-model="leadData.phone" type="tel" id="phone" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#a8cc55]" />
+            <input
+              v-model="leadData.phone"
+              type="tel"
+              id="phone"
+              required
+              class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-[#a8cc55]"
+            />
           </div>
 
-          <button type="submit" class="w-full bg-[#a8cc55] text-white py-3 rounded-lg hover:bg-[#98b84d] transition duration-300">Отправить</button>
+          <button
+            type="submit"
+            class="w-full bg-[#a8cc55] text-white py-3 rounded-lg transition duration-300"
+          >
+            Отправить
+          </button>
         </form>
 
-        <p v-if="message" :class="{ 'text-red-500': isError, 'text-green-500': !isError }" class="text-center mt-4">{{ message }}</p>
+        <p
+          v-if="message"
+          :class="{ 'text-red-500': isError, 'text-green-500': !isError }"
+          class="text-center mt-4"
+        >
+          {{ message }}
+        </p>
       </div>
+
+      <!-- Опросник рядом с формой -->
+      <div class="mt-8 max-w-full bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2 sm:mt-0 sm:mx-0 lg:mt-56">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Подскажите</h2>
+  <form @submit.prevent="submitSurvey" class="grid grid-cols-1 sm:grid-cols-6 gap-4">
+    <div
+      v-for="(question, index) in surveyQuestions"
+      :key="index"
+      class="mb-[26px] flex flex-col justify-between h-26"  
+    >
+      <p class="text-sm font-medium text-gray-700">{{ question.text }}</p>
+      <div class="flex items-center space-x-6">
+        <label class="switch">
+          <input type="checkbox" v-model="question.answer" />
+          <span class="slider round"></span>
+        </label>
+        <span>{{ question.answer ? 'Да' : 'Нет' }}</span>
+      </div>
+    </div>
+  </form>
+</div>
+
+
     </div>
   </div>
 </template>
@@ -34,23 +85,87 @@ export default {
     return {
       leadData: {
         name: '',
-        phone: ''
+        phone: '',
       },
       message: '',
-      isError: false // Флаг для отслеживания ошибок
+      isError: false,
+      surveyQuestions: [
+        { text: 'Предпочитаете общение через Мессенджер?', answer: false },
+        { text: 'Собственник лифта?', answer: false },
+        { text: 'Нужен QR-код?', answer: false },
+        { text: 'Интересует ли вас сезонная реклама (праздники)?', answer: false },
+        { text: 'Хотели бы видео блок?', answer: false },
+        { text: 'Реклама на узнаваемость бренда важнее продаж?', answer: false },
+        { text: 'Плановые замены блоков?', answer: false },
+        { text: 'Хотите помощь в выборе района для рекламы?', answer: false },
+        { text: 'Хотите протестировать несколько форматов рекламы?', answer: false },
+        { text: 'Нужна ли помощь с креативом для рекламы?', answer: false },
+      ]
     };
   },
   methods: {
     async submitLead() {
+      console.log('submitLead called');
+
       try {
-        // Отправляем POST-запрос с данными лида на сервер
-        const response = await axios.post('/api/create-lead', this.leadData);
+        // Считываем актуальные данные из localStorage при отправке
+        const preCalcData = localStorage.getItem('preCalcData');
+        if (!preCalcData) {
+          this.message = 'Нет данных для отправки.';
+          this.isError = true;
+          console.warn('Нет данных в localStorage по ключу preCalcData');
+          return;
+        }
+
+        const parsedData = JSON.parse(preCalcData);
+        console.log('Данные из localStorage:', parsedData);
+
+        const { selectedModules, totalPriceWithDiscount } = parsedData;
+
+        // Формируем информацию о выбранных модулях
+        let selectedModulesInfo = '';
+        if (selectedModules && Object.keys(selectedModules).length > 0) {
+          selectedModulesInfo = '\nВыбранные модули:\n';
+          for (const [moduleName, moduleData] of Object.entries(selectedModules)) {
+            selectedModulesInfo += `- ${moduleName}: ${JSON.stringify(moduleData)}\n`;
+          }
+        }
+
+        // Формируем информацию об итоговой цене
+        let totalPriceInfo = '';
+        if (totalPriceWithDiscount !== null && totalPriceWithDiscount !== undefined) {
+          totalPriceInfo = `\nИтоговая цена со скидкой: ${totalPriceWithDiscount}`;
+        }
+
+        // Объединяем всю информацию
+        const combinedInfo = `
+Имя: ${this.leadData.name}
+Телефон: ${this.leadData.phone}
+${selectedModulesInfo}
+${totalPriceInfo}
+        `.trim();
+
+        console.log('Отправляемая информация:', combinedInfo);
+
+        // Формируем объект для отправки
+        const dataToSend = {
+          name: combinedInfo,
+          phone: this.leadData.phone
+        };
+
+        console.log('Данные для отправки:', dataToSend);
+
+        // Отправляем данные на сервер
+        const response = await axios.post('/api/create-lead', dataToSend);
 
         if (response.status === 200) {
           this.message = 'Заявка успешно отправлена!';
           this.isError = false;
+          // Очистка формы
           this.leadData.name = '';
           this.leadData.phone = '';
+          // Очистка localStorage
+          localStorage.removeItem('preCalcData');
         } else {
           this.message = 'Ошибка при отправке заявки.';
           this.isError = true;
@@ -61,11 +176,76 @@ export default {
         this.isError = true;
         console.error('Ошибка:', error);
       }
-    }
+    },
+    submitSurvey() {
+      // Не отправляем данные опросника
+      console.log('Ответы на опрос:', this.surveyQuestions);
+    },
   }
 };
 </script>
 
 <style scoped>
-/* Tailwind стили используются вместо стандартных CSS */
+/* Тень для блока с консультацией */
+.shadow-consultation {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.shadow-custom-top {
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05),
+              0 0 4px rgba(3, 46, 40, 0.4);
+}
+
+/* Стили для переключателя */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Круглый переключатель */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 </style>

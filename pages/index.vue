@@ -3,7 +3,8 @@
       <NavBar />
       <HeroComponents  id="about" />
       <Info id="services"/>
-      <Module id="contact"/>
+      <Module id="contact"/> 
+   
       <FeedbackForm/>
       <Map2GisWraper/>
       <Slider/>
@@ -20,6 +21,7 @@
   import NavBar from '@/components/NavBar.vue';
   import HeroComponents from '@/components/HeroComponents.vue';
   import Info from '@/components/Info.vue';
+
   import Blocks from '@/components/Blocks.vue';
   import Faq from '@/components/Faq.vue';
   import Map2GisWraper from '~/components/Map2GisWraper.vue';

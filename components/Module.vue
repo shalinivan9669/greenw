@@ -1,86 +1,291 @@
 <template>
-    <section class="bg-[#efefef] py-16">
-      <div class="container mx-auto flex flex-col lg:flex-row items-center">
-        <!-- Схема размеров рекламных модулей -->
-        <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
-          <div class="bg-white rounded-lg shadow-md p-8">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Размеры рекламных модулей</h2>
-            <div class="grid grid-cols-8 gap-1 w-full h-[500px]">
-              <div class="border border-gray-400 col-span-8 row-span-4 flex items-center justify-center font-bold w-full">A3</div>
-              <div class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">A5</div>
-              <div class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">A5</div>
-              <div class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">A4</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">A9</div>
-              <div class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">A4</div>
-              <div class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">A6</div>
-              <div class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">A6</div>
-              <div class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">A6</div>
-              <div class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">A6</div>
-              <div class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">A4</div>
-              <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
-              <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
-              <div class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">A5</div>
-              <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
-              <div class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">A7</div>
+  <section class="bg-[#efefef] py-16 pb-12">
+    <div class="container mx-auto flex pb-12 flex-col lg:flex-row items-center">
+      <!-- Схема размеров рекламных модулей -->
+      <div class="lg:w-1/2 flex justify-center lg:order-1">
+        <div class="bg-white ad-container rounded-lg shadow-md p-8 w-full lg:w-[555px]">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Размеры рекламных модулей</h2>
+          <div class="grid grid-cols-8 gap-1 w-full h-[500px]">
+            <!-- A3 (col-span-8, row-span-4) -->
+            <div @click="toggleSelection('A3')" :class="getClass('A3')" class="border border-gray-400 col-span-8 row-span-4 flex items-center justify-center font-bold w-full">
+              A3
             </div>
-          </div>
-        </div>
-  
-        <!-- Информация о ценах и описаниях модулей -->
-        <div class="lg:w-1/2 flex flex-col space-y-8">
-          <div v-for="(module, index) in adModules" :key="index" class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
-            <div class="w-full flex flex-col sm:flex-row justify-between items-center">
-              <div class="mb-4 sm:mb-0">
-                <h3 class="text-2xl font-bold text-custom-green">{{ module.name }}</h3>
-                <p class="text-gray-700 mt-1">{{ module.size }}</p>
-              </div>
-              <p class="text-2xl font-bold text-black mt-4 sm:mt-0">{{ module.price }} ₸/МЕС</p>
+
+            <!-- A5 (col-span-2, row-span-4) -->
+            <div @click="toggleSelection('A5-1')" :class="getClass('A5-1')" class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">
+              A5
+            </div>
+            <div @click="toggleSelection('A5-2')" :class="getClass('A5-2')" class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">
+              A5
+            </div>
+
+            <!-- A4 (col-span-4, row-span-4) -->
+            <div @click="toggleSelection('A4-1')" :class="getClass('A4-1')" class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">
+              A4
+            </div>
+
+            <!-- A9 (col-span-1, row-span-1) -->
+            <div @click="toggleSelection('A9-1')" :class="getClass('A9-1')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-2')" :class="getClass('A9-2')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-3')" :class="getClass('A9-3')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-4')" :class="getClass('A9-4')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-5')" :class="getClass('A9-5')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-6')" :class="getClass('A9-6')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-7')" :class="getClass('A9-7')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+            <div @click="toggleSelection('A9-8')" :class="getClass('A9-8')" class="border border-gray-400 col-span-1 row-span-1 flex items-center justify-center font-bold w-full">
+              A9
+            </div>
+
+            <!-- A4 (второй блок, col-span-4, row-span-4) -->
+            <div @click="toggleSelection('A4-2')" :class="getClass('A4-2')" class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">
+              A4
+            </div>
+
+            <!-- A6 (col-span-2, row-span-2) -->
+            <div @click="toggleSelection('A6-1')" :class="getClass('A6-1')" class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">
+              A6
+            </div>
+            <div @click="toggleSelection('A6-2')" :class="getClass('A6-2')" class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">
+              A6
+            </div>
+            <div @click="toggleSelection('A6-3')" :class="getClass('A6-3')" class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">
+              A6
+            </div>
+            <div @click="toggleSelection('A6-4')" :class="getClass('A6-4')" class="border border-gray-400 col-span-2 row-span-2 flex items-center justify-center font-bold w-full">
+              A6
+            </div>
+
+            <!-- A4 (третий блок, col-span-4, row-span-4) -->
+            <div @click="toggleSelection('A4-3')" :class="getClass('A4-3')" class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">
+              A4
+            </div>
+
+            <!-- A7 (col-span-1, row-span-2) -->
+            <div @click="toggleSelection('A7-1')" :class="getClass('A7-1')" class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">
+              A7
+            </div>
+            <div @click="toggleSelection('A7-2')" :class="getClass('A7-2')" class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">
+              A7
+            </div>
+            <div @click="toggleSelection('A5-3')" :class="getClass('A5-3')" class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">
+              A5
+            </div>
+            <div @click="toggleSelection('A7-3')" :class="getClass('A7-3')" class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">
+              A7
+            </div>
+            <div @click="toggleSelection('A7-4')" :class="getClass('A7-4')" class="border border-gray-400 col-span-1 row-span-2 flex items-center justify-center font-bold w-full">
+              A7
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </template>
-  
-  <script setup>
-  const adModules = [
-    { name: 'A9 (вертикальный)', size: '5,2 x 3,7 = 19,24 см²', price: '6 000' },
-    { name: 'A7 (вертикальный)', size: '7,4 x 10,5 = 77,7 см²', price: '23 000' },
-    { name: 'A6 (горизонтальный)', size: '14,8 x 10,5 = 155,4 см²', price: '34 500' },
-    { name: 'A5 (вертикальный)', size: '14,8 x 21,0 = 310,8 см²', price: '69 000' },
-    { name: 'A4 (горизонтальный)', size: '29,7 x 21,0 = 623,7 см²', price: '138 000' },
-    { name: 'A3 (горизонтальный)', size: '59,4 x 21,0 = 1247,4 см²', price: '276 000' }
-  ];
-  </script>
-  
-  <style scoped>
-  /***** Tailwind стили используются для придания современного и адаптивного вида *****/
-  section {
-    background: linear-gradient(to bottom, #eff0f2, #ffffff);
+
+      <!-- Информация о ценах и описаниях модулей -->
+      <div class="lg:w-1/2 flex flex-col items-center lg:mb-0 lg:order-3 mt-8 lg:mt-0 w-full">
+        <!-- Вкладки для переключения блоков -->
+        <div class="w-full flex justify-center">
+          <div class="flex w-full max-w-2xl">
+            <button @click="activeTab = 1" :class="activeTab === 1 ? 'bg-green-500 text-white' : 'bg-gray-200 text-black'" class="flex-1 px-4 py-2 border border-gray-300 rounded-t-md">Блок 1</button>
+            <button @click="activeTab = 2" :class="activeTab === 2 ? 'bg-green-500 text-white' : 'bg-gray-200 text-black'" class="flex-1 px-4 py-2 border border-gray-300 rounded-t-md">Блок 2</button>
+            <button @click="activeTab = 3" :class="activeTab === 3 ? 'bg-green-500 text-white' : 'bg-gray-200 text-black'" class="flex-1 px-4 py-2 border border-gray-300 rounded-t-md">Блок 3</button>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-8 w-full mt-4">
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Причины использования</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 w-full h-auto">
+            <!-- A3 -->
+            <div :class="isModuleSelected('A3') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-4 lg:col-span-5 row-span-4 flex items-center justify-center w-full">
+              <div class="text-center flex flex-col px-2">
+                <div class="text-2xl font-extrabold">A3</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A3 }} KZT</p>
+                <p class="text-sm mt-1">Крупный формат для максимального воздействия. <span>Отлично подходит для детальной информации и ярких визуалов, привлекающих внимание.</span></p>
+              </div>
+            </div>
+
+            <!-- A4 -->
+            <div :class="isModuleSelected('A4-1') || isModuleSelected('A4-2') || isModuleSelected('A4-3') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-4 lg:col-span-3 row-span-4 flex items-center justify-center w-full">
+              <div class="text-center flex flex-col px-2">
+                <div class="text-2xl font-extrabold">A4</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A4 }} KZT</p>
+                <p class="text-sm mt-1">Популярный формат для сбалансированного сочетания изображений и текста.<span> Идеален для основных сообщений и предложений.</span></p>
+              </div>
+            </div>
+
+            <!-- A5 -->
+            <div :class="isModuleSelected('A5-1') || isModuleSelected('A5-2') || isModuleSelected('A5-3') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-4 lg:col-span-4 row-span-3 flex items-center justify-center w-full">
+              <div class="text-center flex flex-col px-2">
+                <div class="text-2xl font-extrabold">A5</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A5 }} KZT</p>
+                <p class="text-sm mt-1">Компактный и эффективный формат. <span>Подходит для кратких сообщений, акций и специальных предложений.</span></p>
+              </div>
+            </div>
+
+            <!-- A7 -->
+            <div :class="isModuleSelected('A7-1') || isModuleSelected('A7-2') || isModuleSelected('A7-3') || isModuleSelected('A7-4') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-4 lg:col-span-4 row-span-3 flex items-center justify-center w-full">
+              <div class="text-center flex flex-col px-2">
+                <div class="text-2xl font-extrabold">A7</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A7 }} KZT</p>
+                <p class="text-sm mt-1">Небольшой формат для лаконичных сообщений.<span> Идеально подходит для логотипов и контактной информации.</span></p>
+              </div>
+            </div>
+
+            <!-- A6 -->
+            <div :class="isModuleSelected('A6-1') || isModuleSelected('A6-2') || isModuleSelected('A6-3') || isModuleSelected('A6-4') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-8 row-span-2 flex items-center justify-center w-full">
+              <div class="text-center flex flex-col px-2">
+                <div class="text-2xl font-extrabold">A6</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A6 }} KZT</p>
+                <p class="text-sm mt-1">Удобный размер для основных предложений и призывов к действию.<span> Хорошо привлекает внимание аудитории.</span></p>
+              </div>
+            </div>
+
+            <!-- A9 -->
+            <div :class="isModuleSelected('A9-1') || isModuleSelected('A9-2') || isModuleSelected('A9-3') || isModuleSelected('A9-4') || isModuleSelected('A9-5') || isModuleSelected('A9-6') || isModuleSelected('A9-7') || isModuleSelected('A9-8') ? 'bg-green-200 border border-green-400' : 'border border-gray-400'" class="col-span-2 md:col-span-8 row-span-1 flex items-center justify-center w-full">
+              <div class="text-center px-2">
+                <div class="text-2xl font-extrabold">A9</div>
+                <p class="text-sm mt-1 font-bold">Цена: {{ prices[`block${activeTab}`].A9 }} KZT</p>
+                <p class="text-sm mt-1">Миниатюрный формат для размещения слоганов или контактов. <span>Отлично дополняет другие рекламные материалы.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <transition name="fade-expand">
+      <PreCalc v-if="isAnyModuleSelected" :selectedModules="selectedModules" />
+    </transition>
+  </section>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+import PreCalc from '~/components/PreCalc.vue';
+
+const activeTab = ref(1);
+const selectedModules = ref({ block1: [], block2: [], block3: [] });
+
+const prices = ref({
+  block1: {
+    A3: 10000,
+    A4: 7000,
+    A5: 5000,
+    A6: 3500,
+    A7: 2000,
+    A9: 1000,
+  },
+  block2: {
+    A3: 12000,
+    A4: 8500,
+    A5: 6000,
+    A6: 4000,
+    A7: 2500,
+    A9: 1500,
+  },
+  block3: {
+    A3: 15000,
+    A4: 9000,
+    A5: 7000,
+    A6: 4500,
+    A7: 3000,
+    A9: 2000,
+  },
+});
+
+const toggleSelection = (module) => {
+  const currentBlock = `block${activeTab.value}`;
+  if (selectedModules.value[currentBlock].includes(module)) {
+    selectedModules.value[currentBlock] = selectedModules.value[currentBlock].filter((item) => item !== module);
+  } else {
+    selectedModules.value[currentBlock].push(module);
   }
-  
-  .bg-custom-green {
-    background-color: #98C850;
+};
+
+const getClass = (module) => {
+  return isModuleSelected(module) ? 'bg-green-200' : '';
+};
+
+const isModuleSelected = (module) => {
+  return selectedModules.value[`block${activeTab.value}`].includes(module);
+};
+
+const isAnyModuleSelected = computed(() => {
+  return Object.values(selectedModules.value).some((block) => block.length > 0);
+});
+</script>
+
+<style scoped>
+section {
+  background: linear-gradient(
+    to bottom,
+    #f3f3f3,
+    #b9f3c1,
+    #759911
+  );
+}
+
+.bg-custom-green {
+  background-color: #98C850;
+}
+
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.grid div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
-  .shadow-md {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 641px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .shadow-lg {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
-  
-  .grid div {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  </style>
+}
+
+.fade-expand-enter-active, .fade-expand-leave-active {
+  transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.fade-expand-enter-from, .fade-expand-leave-to {
+  max-height: 0;
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.fade-expand-enter-to, .fade-expand-leave-from {
+  max-height: 1000px;
+  opacity: 1;
+  transform: scale(1.05);
+}
+</style>
