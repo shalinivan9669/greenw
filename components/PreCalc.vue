@@ -3,7 +3,7 @@
     <div class="scroll-wheel-container flex flex-col lg:flex-row justify-between items-center w-full lg:w-4/6 lg:ml-36 gap-4">
       <!-- Пояснение о скидках -->
       <div class="discount-info text-sm text-gray-600 mt-4 w-full lg:w-1/3">
-        <p>Скидки зависят от количества месяцев и выбранных рекламных модулей:</p>
+        <p class="text-xl text-black mb-2">Скидки зависят от количества месяцев и выбранных рекламных модулей:</p>
         <ul class="list-disc list-inside">
           <li>Размещение нескольких форматов на одном баннере: <strong>{{ hasMultipleFormats ? 'Достигнуто' : 'Не достигнуто' }}</strong></li>
           <li>Размещение одного формата во всех блоках (предоплата): <strong>{{ isAllBlocks ? 'Достигнуто' : 'Не достигнуто' }}</strong></li>
@@ -12,18 +12,23 @@
           <li>Комплиментарная скидка на первое размещение: <strong>{{ selectedMonths === 1 && totalBlocks > 0 ? 'Достигнуто' : 'Не достигнуто' }}</strong></li>
         </ul>
       </div>
+      
       <!-- Регулятор месяцев -->
       <div class="scroll-wheel-wrapper flex flex-col items-center w-full lg:w-1/3">
         <!-- Вывод бонусов или анекдота, если выбран 0 -->
-        <div class="bonus-info mt-6">
+        <div class="bonus-info mb-10 mt-6">
           <h2 class="text-xl text-black font-bold text-center">Бонус за {{ selectedMonths }} месяцев: {{ calculateBonus() }}%</h2>
         </div>
-        <!-- Пояснение для пользователя -->
-        <div class="instruction-text mt-2 text-center text-gray-500 text-xs">
-          Используйте стрелки, чтобы выбрать количество месяцев.
-        </div>
+       
         <!-- Кнопка для уменьшения значения -->
-        <div @mousedown="startDecreasingMonths" @mouseup="stopScrolling" @mouseleave="stopScrolling" class="arrow-up">
+        <div 
+          @mousedown="startDecreasingMonths" 
+          @mouseup="stopScrolling" 
+          @mouseleave="stopScrolling" 
+          @touchstart.prevent="startDecreasingMonths" 
+          @touchend.prevent="stopScrolling" 
+          @touchcancel.prevent="stopScrolling" 
+          class="arrow-up">
           <span class="arrow-icon">▲</span>
         </div>
 
@@ -40,10 +45,18 @@
         </div>
 
         <!-- Кнопка для увеличения значения -->
-        <div @mousedown="startIncreasingMonths" @mouseup="stopScrolling" @mouseleave="stopScrolling" class="arrow-down">
+        <div 
+          @mousedown="startIncreasingMonths" 
+          @mouseup="stopScrolling" 
+          @mouseleave="stopScrolling" 
+          @touchstart.prevent="startIncreasingMonths" 
+          @touchend.prevent="stopScrolling" 
+          @touchcancel.prevent="stopScrolling" 
+          class="arrow-down">
           <span class="arrow-icon">▼</span>
         </div>
       </div>
+      
       <!-- Табло информации о выбранных модулях и стоимости -->
       <div class="info-display w-full lg:w-2/5 text-black mt-6">
         <!-- Информация о выбранных модулях -->
@@ -52,9 +65,9 @@
           <div v-if="Object.keys(formattedSelectedModules).length === 0" class="text-black text-center lg:text-left">Нет выбранных модулей</div>
           <div v-else>
             <div v-for="(modules, block) in formattedSelectedModules" :key="block" class="text-black text-center lg:text-left">
-              <h4 class="text-md text-black font-bold">{{ block }}:</h4>
+              <h4 class="text-md text-black font-bold">{{ formatBlockName(block) }}:</h4>
               <ul class="flex flex-col lg:flex-row">
-                <li class="text-black" v-for="(count, module) in modules" :key="module">
+                <li class="text-black mr-2" v-for="(count, module) in modules" :key="module">
                   {{ module }}: {{ count }} шт.
                 </li>
               </ul>
@@ -181,6 +194,13 @@ export default {
     totalPriceWithDiscount: 'saveToLocalStorage'
   },
   methods: {
+    formatBlockName(block) {
+      const match = block.match(/block(\d+)/i);
+      if (match) {
+        return `Блок ${match[1]}`;
+      }
+      return block;
+    },
     startIncreasingMonths() {
       this.scrollInterval = setInterval(() => {
         if (this.selectedMonths < 12) {
@@ -266,8 +286,85 @@ export default {
         totalPriceWithDiscount: this.totalPriceWithDiscount,
       };
       localStorage.setItem('preCalcData', JSON.stringify(data));
-    }
-  },
+    },
+    async submitLead() {
+      console.log('submitLead called');
+
+      try {
+        // Считываем актуальные данные из localStorage при отправке
+        const preCalcData = localStorage.getItem('preCalcData');
+        if (!preCalcData) {
+          this.message = 'Нет данных для отправки.';
+          this.isError = true;
+          console.warn('Нет данных в localStorage по ключу preCalcData');
+          return;
+        }
+
+        const parsedData = JSON.parse(preCalcData);
+        console.log('Данные из localStorage:', parsedData);
+
+        const { selectedModules, totalPriceWithDiscount } = parsedData;
+
+        // Формируем информацию о выбранных модулях
+        let selectedModulesInfo = '';
+        if (selectedModules && Object.keys(selectedModules).length > 0) {
+          selectedModulesInfo = '\nВыбранные модули:\n';
+          for (const [moduleName, moduleData] of Object.entries(selectedModules)) {
+            selectedModulesInfo += `- ${this.formatBlockName(moduleName)}: ${JSON.stringify(moduleData)}\n`;
+          }
+        }
+
+        // Формируем информацию об итоговой цене
+        let totalPriceInfo = '';
+        if (totalPriceWithDiscount !== null && totalPriceWithDiscount !== undefined) {
+          totalPriceInfo = `\nИтоговая цена со скидкой: ${totalPriceWithDiscount} тг`;
+        }
+
+        // Объединяем всю информацию
+        const combinedInfo = `
+Имя: ${this.leadData.name}
+Телефон: ${this.leadData.phone}
+${selectedModulesInfo}
+${totalPriceInfo}
+        `.trim();
+
+        console.log('Отправляемая информация:', combinedInfo);
+
+        // Формируем объект для отправки
+        const dataToSend = {
+          name: combinedInfo,
+          phone: this.leadData.phone
+        };
+
+        console.log('Данные для отправки:', dataToSend);
+
+        // Отправляем данные на сервер
+        const response = await axios.post('/api/create-lead', dataToSend);
+
+        if (response.status === 200) {
+          this.message = 'Заявка успешно отправлена!';
+          this.isError = false;
+          // Очистка формы
+          this.leadData.name = '';
+          this.leadData.phone = '';
+          // Очистка localStorage
+          localStorage.removeItem('preCalcData');
+        } else {
+          this.message = 'Ошибка при отправке заявки.';
+          this.isError = true;
+          console.error('Ошибка:', response.data);
+        }
+      } catch (error) {
+        this.message = 'Ошибка при отправке заявки.';
+        this.isError = true;
+        console.error('Ошибка:', error);
+      }
+    },
+    submitSurvey() {
+      // Не отправляем данные опросника
+      console.log('Ответы на опрос:', this.surveyQuestions);
+    },
+  }
 };
 </script>
 
@@ -294,7 +391,7 @@ export default {
   justify-content: center;
   background: #b8e986; /* Тепло зелёный цвет, соответствующий стилю сайта */
   width: 49px;
-  height: 116px;
+  height: 150px; /* Изменено с 116px на 150px */
   border-radius: 10px;
   margin: 8px 0;
   overflow: hidden;
@@ -402,4 +499,19 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border: 2px solid #3a3a3a; /* Чёткие границы тёмного цвета */
 }
+
+/* Убедитесь, что высота scroll-item и scroll-items-wrapper соответствует 3 элементам */
+.scroll-wheel-container .scroll-wheel-wrapper .scroll-wheel .scroll-items-wrapper .scroll-item {
+  height: 50px; /* Уже установлено */
+}
+
+.scroll-wheel-container .scroll-wheel-wrapper .scroll-wheel .scroll-items-wrapper {
+  height: 150px; /* Уже установлено */
+}
+
+.scroll-wheel-container .scroll-wheel-wrapper .scroll-wheel .scroll-items {
+  /* Убедитесь, что высота scroll-items позволяет отображать 3 элемента */
+  height: 150px;
+}
 </style>
+

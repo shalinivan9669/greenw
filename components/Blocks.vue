@@ -12,7 +12,7 @@
           <!-- Новая сетка с двумя колонками -->
           <div class="grid grid-cols-2 gap-4 text-gray-700 mb-4">
             <!-- Домов -->
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-around">
               <span><strong>Домов:</strong> {{ block.houses }}</span>
               <!-- Иконка домов -->
               <svg
@@ -38,25 +38,8 @@
               </svg>
             </div>
             <!-- Лифтов -->
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-around">
               <span><strong>Лифтов:</strong> {{ block.lifts }}</span>
-              <!-- Иконка лифта -->
-              <svg
-                class="w-8 h-8 text-custom-green"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 0L3 2V14H1V16H15V14H13V2H11V14H9V0Z"
-                  fill="currentColor"
-                />
-                <circle cx="6.75" cy="8" r="1" fill="white" />
-              </svg>
-            </div>
-            <!-- Квартир -->
-            <div class="flex items-center justify-between">
-              <span><strong>Квартир:</strong> {{ block.apartments }}</span>
               <!-- Иконка квартир -->
               <svg
                 class="w-8 h-8 text-custom-green"
@@ -101,8 +84,25 @@
                 />
               </svg>
             </div>
+            <!-- Квартир -->
+            <div class="flex items-center justify-around">
+              <span><strong>Квартир:</strong> {{ block.apartments }}</span>
+              <!-- Иконка лифта -->
+              <svg
+                class="w-8 h-8 text-custom-green"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 0L3 2V14H1V16H15V14H13V2H11V14H9V0Z"
+                  fill="currentColor"
+                />
+                <circle cx="6.75" cy="8" r="1" fill="white" />
+              </svg>
+            </div>
             <!-- Население -->
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-around">
               <span><strong>Население:</strong> {{ block.population }}</span>
               <!-- Иконка населения -->
               <svg

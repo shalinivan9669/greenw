@@ -7,20 +7,20 @@
           <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Размеры рекламных модулей</h2>
           <div class="grid grid-cols-8 gap-1 w-full h-[500px]">
             <!-- A3 (col-span-8, row-span-4) -->
-            <div @click="toggleSelection('A3')" :class="getClass('A3')" class="border border-gray-400 col-span-8 row-span-4 flex items-center justify-center font-bold w-full">
+            <div @click="toggleSelection('A3')" :class="getClass('A3')" class="border border-gray-400 col-span-8 row-span-5 flex items-center justify-center font-bold w-full">
               A3
             </div>
 
             <!-- A5 (col-span-2, row-span-4) -->
-            <div @click="toggleSelection('A5-1')" :class="getClass('A5-1')" class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">
+            <div @click="toggleSelection('A5-1')" :class="getClass('A5-1')" class="border border-gray-400 col-span-2 row-span-6 flex items-center justify-center font-bold w-full">
               A5
             </div>
-            <div @click="toggleSelection('A5-2')" :class="getClass('A5-2')" class="border border-gray-400 col-span-2 row-span-4 flex items-center justify-center font-bold w-full">
+            <div @click="toggleSelection('A5-2')" :class="getClass('A5-2')" class="border border-gray-400 col-span-2 row-span-6 flex items-center justify-center font-bold w-full">
               A5
             </div>
 
             <!-- A4 (col-span-4, row-span-4) -->
-            <div @click="toggleSelection('A4-1')" :class="getClass('A4-1')" class="border border-gray-400 col-span-4 row-span-4 flex items-center justify-center font-bold w-full">
+            <div @click="toggleSelection('A4-1')" :class="getClass('A4-1')" class="border border-gray-400 col-span-4 row-span-6 flex items-center justify-center font-bold w-full">
               A4
             </div>
 
@@ -104,7 +104,7 @@
             <button @click="activeTab = 3" :class="activeTab === 3 ? 'bg-green-500 text-white' : 'bg-gray-200 text-black'" class="flex-1 px-4 py-2 border border-gray-300 rounded-t-md">Блок 3</button>
           </div>
         </div>
-        <div class="bg-white rounded-lg shadow-md p-8 w-full mt-4">
+        <div class="bg-white rounded-lg shadow-md mb-1 p-8 w-full ">
           <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Причины использования</h2>
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4 w-full h-auto">
             <!-- A3 -->
@@ -255,23 +255,6 @@ section {
   text-align: center;
 }
 
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 641px) {
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-}
 
 .fade-expand-enter-active, .fade-expand-leave-active {
   transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
