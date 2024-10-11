@@ -6,7 +6,7 @@
         :key="index"
         class="bg-white shadow-lg rounded-xl overflow-hidden transform hover:scale-105 transition-transform duration-300"
       >
-        <img :src="block.image" alt="Image" class="w-full h-56 object-cover" />
+        <img :src="block.image" loading="lazy" alt="Image" class="w-full h-56 object-cover" />
         <div class="p-6">
           <h3 class="text-2xl font-semibold text-center text-gray-800 mb-4">{{ block.name }}</h3>
           <!-- Новая сетка с двумя колонками -->

@@ -1,32 +1,72 @@
 <template>
-    <div>
-      <NavBar />
-      <HeroComponents  id="about" />
-      <Info id="services"/>
-      <Module id="contact"/> 
-   
-      <FeedbackForm/>
-      <Map2GisWraper/>
-      <Slider/>
-      <Blocks/>
-      <Faq id="bank"/>
-      <Footer/>
-      
-    </div>
-  </template>
-  
-  <script setup>
- import FeedbackForm from '@/components/FeedbackForm.vue';
- 
-  import NavBar from '@/components/NavBar.vue';
-  import HeroComponents from '@/components/HeroComponents.vue';
-  import Info from '@/components/Info.vue';
+  <div>
+    <NavBar />
+    <HeroComponents id="about" />
+    <Info id="services"/>
+    
+    <Suspense>
+      <template #default>
+        <AsyncModule /> 
+      </template>
+      <template #fallback>
+        <div>Загрузка модуля...</div>
+      </template>
+    </Suspense>
 
-  import Blocks from '@/components/Blocks.vue';
-  import Faq from '@/components/Faq.vue';
-  import Map2GisWraper from '~/components/Map2GisWraper.vue';
-  import Footer from '@/components/Footer.vue';
- import Slider from '@/components/Slider.vue';
-  import Module from '~/components/Module.vue';
-  </script>
-  
+    <Suspense>
+      <template #default>
+        <AsyncFeedbackForm id="contact"/>
+      </template>
+      <template #fallback>
+        <div>Загрузка формы обратной связи...</div>
+      </template>
+    </Suspense>
+    
+    <!-- Дополнительные асинхронные компоненты -->
+    <Suspense>
+      <template #default>
+        <AsyncMap2GisWraper/>
+      </template>
+      <template #fallback>
+        <div>Загрузка карты...</div>
+      </template>
+    </Suspense>
+    
+    <Suspense>
+      <template #default>
+        <AsyncSlider/>
+      </template>
+      <template #fallback>
+        <div>Загрузка слайдера...</div>
+      </template>
+    </Suspense>
+    
+    <Suspense>
+      <template #default>
+        <AsyncFaq />
+      </template>
+      <template #fallback>
+        <div>Загрузка FAQ...</div>
+      </template>
+    </Suspense>
+
+    <Blocks/>
+    <Footer id="bank"/>
+  </div>
+</template>
+
+<script setup>
+import { defineAsyncComponent } from 'vue';
+import NavBar from '@/components/NavBar.vue';
+import HeroComponents from '@/components/HeroComponents.vue';
+import Info from '@/components/Info.vue';
+import Blocks from '@/components/Blocks.vue';
+import Footer from '@/components/Footer.vue';
+
+// Динамическая загрузка компонентов
+const AsyncModule = defineAsyncComponent(() => import('~/components/Module.vue'));
+const AsyncFeedbackForm = defineAsyncComponent(() => import('@/components/FeedbackForm.vue'));
+const AsyncMap2GisWraper = defineAsyncComponent(() => import('~/components/Map2GisWraper.vue'));
+const AsyncSlider = defineAsyncComponent(() => import('@/components/Slider.vue'));
+const AsyncFaq = defineAsyncComponent(() => import('@/components/Faq.vue'));
+</script>

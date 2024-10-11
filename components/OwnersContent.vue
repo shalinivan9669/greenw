@@ -159,7 +159,7 @@
           </div>
           <!-- Изображение или видео -->
           <div class="lg:w-1/2 mt-8 lg:mt-0 lg:pl-8">
-            <img src=" " alt="Рекламный стенд в лифте" class="w-full h-auto rounded-lg shadow-md">
+            <img src=" " loading="lazy" alt="Рекламный стенд в лифте" class="w-full h-auto rounded-lg shadow-md">
           </div>
         </div>
       </div>

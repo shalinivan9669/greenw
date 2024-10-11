@@ -22,7 +22,7 @@
       </div>
       <!-- Изображение -->
       <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
-        <img :src="logo" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md">
+        <img :src="logo" loading="lazy" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md">
       </div>
     </div>
 

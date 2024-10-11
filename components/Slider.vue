@@ -12,7 +12,7 @@
         :key="index"
         :style="getSlideStyle(index)"
       >
-        <img :src="image" alt="carousel image" class="carousel-image" />
+        <img :src="image" loading="lazy" alt="carousel image" class="carousel-image" />
       </div>
     </div>
 
