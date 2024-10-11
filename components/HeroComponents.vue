@@ -67,7 +67,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import logo from '@/assets/LIFT.png';
+import logo from '@/assets/LIFT.webp';
 
 const showOrderModal = ref(false);
 
