@@ -180,6 +180,7 @@
         </button>
         <img
           :src="selectedBlock.image"
+          loading="lazy"
           alt="Image"
           class="w-full h-64 object-cover rounded-lg mb-6"
         />
@@ -420,9 +421,9 @@ import { ref } from 'vue'
 import axios from 'axios'
 
 // Импорт изображений
-import image1 from '@/assets/1b.png'
-import image2 from '@/assets/2b.png'
-import image3 from '@/assets/3b.png'
+import image1 from '@/assets/1b.webp'
+import image2 from '@/assets/2b.webp'
+import image3 from '@/assets/3b.webp'
 
 // Пример данных блоков
 const blocks = [
