@@ -22,7 +22,7 @@
       </div>
       <!-- Изображение -->
       <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
-        <NuxtImg src="/s.webp" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md" sizes="(max-width: 440px) 100vw, 440px" />
+        <img :src="imageSrc" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md" />
       </div>
     </div>
 
@@ -51,6 +51,7 @@
 <script setup>
 import { ref, onMounted, defineAsyncComponent } from 'vue';
 import axios from 'axios';
+import imageSrc from '@/assets/s.webp'; // Импорт изображения
 
 // Ленивая загрузка модального окна
 const LazyOrderModal = defineAsyncComponent(() => import('@/components/OrderModal.vue'));
