@@ -1,14 +1,20 @@
- 
+import compression from 'compression'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   
+  // Включение gzip-сжатия для всего контента
+  serverMiddleware: [
+    compression({ threshold: 0 })
+  ],
+
   app: {
     head: {
       htmlAttrs: {
         lang: 'ru',
       },
-      title: 'Реклама в лифтах Караганды и Темертау| GREENWAY — Привлекайте клиентов по-новому',
+      title: 'Реклама в лифтах Караганды и Темертау | GREENWAY — Реклама в Караганде',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,7 +26,7 @@ export default defineNuxtConfig({
         {
           name: 'keywords',
           content:
-            'реклама в лифтах Караганда, реклама в лифтах Темертау, лифтовая реклама, рекламное агентство Караганда, банерная реклама в Караганде,  Рекламные стенды Караганда, локальная реклама, размещение рекламы, эффективная реклама, рекламные услуги Караганда',
+            'реклама в лифтах Караганда, Реклама в Караганде, GREENWAY, реклама в лифтах Темертау, лифтовая реклама, рекламное агентство Караганда, баннерная реклама в Караганде, Рекламные стенды Караганда, локальная реклама, размещение рекламы, эффективная реклама, рекламные услуги Караганда',
         },
         // Open Graph мета-теги
         { property: 'og:title', content: 'Реклама в лифтах Караганды | GREENWAY' },
@@ -49,7 +55,7 @@ export default defineNuxtConfig({
       ],
       
       link: [
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'icon', type: 'image/png', href: '/favicon.ico' },
         // Дополнительные ссылки на ресурсы
       ],
       script: [
@@ -84,8 +90,34 @@ export default defineNuxtConfig({
         },
       ],
     },
-    buildAssetsDir: '/_nuxt/',
+    buildAssetsDir: '/_nuxt/', // Директория для статических активов
   },
- 
-  modules: ['@nuxtjs/tailwindcss'],
+
+  modules: [
+    '@nuxt/image',
+    '@nuxtjs/tailwindcss',
+  ],
+
+  // Настройки для модуля @nuxt/image
+  image: {
+    dir: 'assets',
+    format: ['webp', 'png'],
+    providers: {
+      // Опциональные провайдеры изображений, например Cloudinary или imgix
+    },
+  },
+
+  plugins: [
+    '~/plugins/observe-visibility.js' // Ваши плагины
+  ],
+
+  build: {
+    terser: {
+      terserOptions: {
+        compress: {
+          drop_console: true, // Удалить все console.log из финальной сборки
+        },
+      },
+    },
+  },
 })

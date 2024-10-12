@@ -1,8 +1,8 @@
 <template>
-  <section class="bg-[#efefef] py-12">
+  <section class="bg-gray-100 py-12">
     <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
-   <!-- Текстовая часть -->
-   <div class="text-center lg:text-left lg:w-1/2">
+      <!-- Текстовая часть -->
+      <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
           Эффективная реклама в лифтах Караганды от GREENWAY
         </h1>
@@ -12,74 +12,58 @@
 
         <!-- Кнопки -->
         <div class="flex justify-center lg:justify-start space-x-4 mt-8">
-          <button @click="openOrderModal" class="bg-custom-green  text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <button @click="openOrderModal" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Заказать рекламу
           </button>
-          <a href="https://www.tiktok.com/@greenway_reklama" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <a href="https://www.tiktok.com/@greenway_reklama" target="_blank" rel="noopener" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Смотреть видео
           </a>
         </div>
       </div>
       <!-- Изображение -->
       <div class="lg:w-1/2 flex justify-center mb-8 lg:mb-0">
-        <img :src="logo" loading="lazy" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md">
+        <NuxtImg src="/s.webp" alt="Реклама в лифтах Караганды" class="w-full h-auto lg:max-w-md" sizes="(max-width: 440px) 100vw, 440px" />
       </div>
     </div>
 
     <!-- Статистика -->
-    <div class="bg-custom-green py-12 mt-12">
+    <div ref="statsSection" class="bg-custom-green py-12 mt-12">
       <div class="container mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-white">
-        <div v-for="(item, index) in stats" :key="index" class="stat-item">
-          <h3 class="text-3xl font-bold border-b-4 border-white w-[150px] mx-auto pb-2" :data-target="item.value">0</h3>
+        <div v-for="item in stats" :key="item.label" class="stat-item">
+          <h3 class="text-3xl font-bold border-b-4 border-white w-[150px] mx-auto pb-2">{{ formattedStats[item.label] }}</h3>
           <p class="mt-2">{{ item.label }}</p>
         </div>
       </div>
     </div>
 
     <!-- Модальное окно для заказа -->
-    <div v-if="showOrderModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div class="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 mx-4 lg:mx-0">
-        <div class="text-right">
-          <button @click="closeOrderModal" class="text-gray-500 hover:text-gray-700">&times;</button>
-        </div>
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-black mb-4">Свяжитесь с нами</h2>
-          <p class="text-lg text-gray-700">Заполните форму ниже, и мы свяжемся с вами как можно скорее</p>
-        </div>
-        <form @submit.prevent="submitLead">
-          <div class="mb-6">
-            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Имя:</label>
-            <input v-model="leadData.name" type="text" id="name" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-custom-green" />
-          </div>
-          <div class="mb-6">
-            <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Телефон:</label>
-            <input v-model="leadData.phone" type="tel" id="phone" required class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-custom-green" @blur="validatePhone" />
-            <p v-if="phoneError" class="text-red-500 mt-2">{{ phoneError }}</p>
-          </div>
-          <button type="submit" class="w-full bg-custom-green text-white py-3 rounded-lg hover:bg-green-500 transition duration-300">Отправить</button>
-        </form>
-        <p v-if="message" :class="{ 'text-red-500': isError, 'text-green-500': !isError }" class="text-center mt-4">{{ message }}</p>
-      </div>
-    </div>
+    <Suspense>
+      <template #default>
+        <LazyOrderModal v-if="showOrderModal" :leadData="leadData" @close="closeOrderModal" @submit="handleSubmit" />
+      </template>
+      <template #fallback>
+        <!-- Можно добавить спиннер или другой индикатор загрузки -->
+      </template>
+    </Suspense>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import axios from 'axios';
-import logo from '@/assets/LIFT.webp';
+
+// Ленивая загрузка модального окна
+const LazyOrderModal = defineAsyncComponent(() => import('@/components/OrderModal.vue'));
 
 const showOrderModal = ref(false);
 
 // Открыть модальное окно
 const openOrderModal = () => {
-  console.log("Открываем модальное окно");
   showOrderModal.value = true;
 };
 
 // Закрыть модальное окно
 const closeOrderModal = () => {
-  console.log("Закрываем модальное окно");
   showOrderModal.value = false;
 };
 
@@ -94,14 +78,46 @@ const phoneError = ref('');
 
 // Статистика
 const stats = ref([
-  { value: 300, label: 'лифтов' },
-  { value: 150, label: 'жилых домов' },
-  { value: 36000, label: 'ежедневный охват аудитории' },
-  { value: 1080000, label: 'ежемесячный охват аудитории' }
+  { label: 'лифтов', value: 300 },
+  { label: 'жилых домов', value: 150 },
+  { label: 'ежедневный охват аудитории', value: 36000 },
+  { label: 'ежемесячный охват аудитории', value: 1080000 }
 ]);
 
-// Функция для отправки данных заказа
-const submitLead = async () => {
+// Форматирование статистики (анимация чисел)
+const formattedStats = ref({});
+const animateNumbers = () => {
+  stats.value.forEach(item => {
+    formattedStats.value[item.label] = 0;
+    const target = item.value;
+    const increment = target / 200;
+    const updateCount = () => {
+      formattedStats.value[item.label] += increment;
+      if (formattedStats.value[item.label] < target) {
+        requestAnimationFrame(updateCount);
+      } else {
+        formattedStats.value[item.label] = target;
+      }
+    };
+    updateCount();
+  });
+};
+
+// Валидация телефона для Казахстана
+const validatePhone = () => {
+  const kazakhstanPhoneRegex = /^\+7\d{9}$/;
+  if (!kazakhstanPhoneRegex.test(leadData.value.phone)) {
+    phoneError.value = 'Введите корректный номер телефона в формате +7XXXXXXXXX';
+  } else {
+    phoneError.value = '';
+  }
+};
+
+// Обработка отправки формы
+const handleSubmit = async (data) => {
+  leadData.value = data;
+  validatePhone();
+
   if (phoneError.value) {
     message.value = 'Ошибка в поле "Телефон". Исправьте перед отправкой.';
     isError.value = true;
@@ -129,41 +145,19 @@ const submitLead = async () => {
   }
 };
 
-// Валидация телефона для Казахстана
-const validatePhone = () => {
-  const kazakhstanPhoneRegex = /^\+7\d{9}$/;
-  if (!kazakhstanPhoneRegex.test(leadData.value.phone)) {
-    phoneError.value = 'Введите корректный номер телефона в формате +7XXXXXXXXX';
-  } else {
-    phoneError.value = '';
+// Использование Intersection Observer для запуска анимации при видимости
+const statsSection = ref(null);
+import { useIntersectionObserver } from '@vueuse/core';
+
+useIntersectionObserver(statsSection, ([{ isIntersecting }]) => {
+  if (isIntersecting) {
+    animateNumbers();
   }
-};
-
-// Анимация для статистики
-const animateNumbers = () => {
-  const elements = document.querySelectorAll('.stat-item h3');
-  elements.forEach((element) => {
-    const target = parseInt(element.getAttribute('data-target'));
-    let count = 0;
-    const increment = target / 200;
-    const updateCount = () => {
-      count += increment;
-      if (count < target) {
-        element.textContent = Math.ceil(count);
-        requestAnimationFrame(updateCount);
-      } else {
-        element.textContent = target;
-      }
-    };
-    updateCount();
-  });
-};
-
-onMounted(() => {
-  animateNumbers();
+}, {
+  threshold: 0.5
 });
 </script>
 
 <style scoped>
-/* Tailwind стили используются вместо стандартных CSS */
+/* Tailwind CSS используется для стилей, дополнительные стили можно добавить здесь */
 </style>
