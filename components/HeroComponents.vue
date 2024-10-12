@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-gray-100 py-12">
+  <section class="bg-[#efefef] py-12">
     <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
       <!-- Текстовая часть -->
       <div class="text-center lg:text-left lg:w-1/2">
