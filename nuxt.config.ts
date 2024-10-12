@@ -100,7 +100,7 @@ export default defineNuxtConfig({
 
   // Настройки для модуля @nuxt/image
   image: {
-    dir: 'assets',
+    dir: 'static',
     format: ['webp', 'png'],
     providers: {
       // Опциональные провайдеры изображений, например Cloudinary или imgix
