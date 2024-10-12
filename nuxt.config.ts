@@ -100,7 +100,7 @@ export default defineNuxtConfig({
 
   // Настройки для модуля @nuxt/image
   image: {
-    dir: 'public',
+    dir: 'assets',
     format: ['webp', 'png'],
     providers: {
       // Опциональные провайдеры изображений, например Cloudinary или imgix
@@ -111,13 +111,5 @@ export default defineNuxtConfig({
     '~/plugins/observe-visibility.js' // Ваши плагины
   ],
 
-  build: {
-    terser: {
-      terserOptions: {
-        compress: {
-          drop_console: true, // Удалить все console.log из финальной сборки
-        },
-      },
-    },
-  },
+   
 })
