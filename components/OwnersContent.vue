@@ -3,7 +3,7 @@
     <section class="bg-gray-50 py-12">
       <div class="container mx-auto px-4 lg:px-8">
         <!-- Заголовок страницы -->
-        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Собственникам лифтов</h1>
+        <p class="text-4xl font-bold text-center text-gray-800 mb-8">Собственникам лифтов</p>
   
         <!-- Первый блок текста -->
         <div class="bg-white rounded-lg shadow-md p-8 mb-12">
@@ -159,7 +159,7 @@
           </div>
           <!-- Изображение или видео -->
           <div class="lg:w-1/2 mt-8 lg:mt-0 lg:pl-8">
-            <img src=" " loading="lazy" alt="Рекламный стенд в лифте" class="w-full h-auto rounded-lg shadow-md">
+            <img :src=img loading="lazy" alt="Рекламный стенд в лифте" class="w-full h-auto rounded-lg shadow-md">
           </div>
         </div>
       </div>
@@ -168,6 +168,7 @@
   
   <script setup>
   import QuizForm from '@/components/QuizForm.vue'
+  import img from '@/assets/sli.jpg'
   </script>
   
   <style scoped>
