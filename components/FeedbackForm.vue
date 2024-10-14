@@ -9,8 +9,17 @@
         </p>
       </div>
 
+      <!-- Переключатель для открытия/закрытия опросника в мобильной версии -->
+      <div class="mt-36 mb-10 block lg:hidden flex justify-center items-center">
+        <label class="switch">
+          <input type="checkbox" v-model="showSurvey" />
+          <span class="slider round big"></span>
+        </label>
+        <span class="ml-10">{{ showSurvey ? 'Скрыть опросник' : 'Показать опросник' }}</span>
+      </div>
+
       <!-- Форма для контактов -->
-      <div class="mt-56 max-w-lg bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2">
+      <div class="mt-10 xl:mt-52 max-w-lg bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2" ref="contactForm">
         <form @submit.prevent="submitLead">
           <div class="mb-6">
             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Имя:</label>
@@ -51,27 +60,38 @@
         </p>
       </div>
 
-      <!-- Опросник рядом с формой -->
-      <div class="mt-8 max-w-full bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2 sm:mt-0 sm:mx-0 lg:mt-56">
-  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Подскажите</h2>
-  <form @submit.prevent="submitSurvey" class="grid grid-cols-1 sm:grid-cols-6 gap-4">
-    <div
-      v-for="(question, index) in surveyQuestions"
-      :key="index"
-      class="mb-[26px] flex flex-col justify-between h-26"  
-    >
-      <p class="text-sm font-medium text-gray-700">{{ question.text }}</p>
-      <div class="flex items-center space-x-6">
-        <label class="switch">
-          <input type="checkbox" v-model="question.answer" />
-          <span class="slider round"></span>
-        </label>
-        <span>{{ question.answer ? 'Да' : 'Нет' }}</span>
+      <!-- Опросник -->
+      <div
+        v-show="showSurvey || isDesktop"
+        class="mt-8 max-w-full bg-white rounded-3xl shadow-lg p-8 w-full lg:w-1/2 sm:mt-0 sm:mx-0 lg:mt-56 survey-container"
+      >
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Подскажите</h2>
+        <form @submit.prevent="submitSurvey" class="grid grid-cols-1 sm:grid-cols-6 gap-4">
+          <div
+            v-for="(question, index) in surveyQuestions"
+            :key="index"
+            class="mb-[26px] flex flex-col justify-between h-26"
+          >
+            <p class="text-sm font-medium text-gray-700">{{ question.text }}</p>
+            <div class="flex items-center space-x-6">
+              <label class="switch">
+                <input type="checkbox" v-model="question.answer" />
+                <span class="slider round"></span>
+              </label>
+              <span>{{ question.answer ? 'Да' : 'Нет' }}</span>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
-  </form>
-</div>
 
+      <!-- Плавающая кнопка для возврата к форме -->
+      <button
+        v-show="showScrollToTopButton"
+        @click="scrollToForm"
+        class="fixed bottom-4 right-4 lg:hidden bg-[#a8cc55] text-white px-4 py-2 rounded-full shadow-lg z-50"
+      >
+        ВВЕРХ
+      </button>
 
     </div>
   </div>
@@ -89,6 +109,9 @@ export default {
       },
       message: '',
       isError: false,
+      showSurvey: false, // Управление отображением опросника
+      isDesktop: false, // Инициализируем как false
+      showScrollToTopButton: false, // Показывать ли кнопку возврата к форме
       surveyQuestions: [
         { text: 'Предпочитаете общение через Мессенджер?', answer: false },
         { text: 'Собственник лифта?', answer: false },
@@ -103,83 +126,41 @@ export default {
       ]
     };
   },
+  mounted() {
+    if (typeof window !== 'undefined') {
+      this.isDesktop = window.innerWidth >= 1024; // Проверяем размер окна только на клиенте
+      window.addEventListener('resize', this.checkIsDesktop);
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  beforeDestroy() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.checkIsDesktop);
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  },
   methods: {
-    async submitLead() {
-      console.log('submitLead called');
-
-      try {
-        // Считываем актуальные данные из localStorage при отправке
-        const preCalcData = localStorage.getItem('preCalcData');
-        if (!preCalcData) {
-          this.message = 'Нет данных для отправки.';
-          this.isError = true;
-          console.warn('Нет данных в localStorage по ключу preCalcData');
-          return;
-        }
-
-        const parsedData = JSON.parse(preCalcData);
-        console.log('Данные из localStorage:', parsedData);
-
-        const { selectedModules, totalPriceWithDiscount } = parsedData;
-
-        // Формируем информацию о выбранных модулях
-        let selectedModulesInfo = '';
-        if (selectedModules && Object.keys(selectedModules).length > 0) {
-          selectedModulesInfo = '\nВыбранные модули:\n';
-          for (const [moduleName, moduleData] of Object.entries(selectedModules)) {
-            selectedModulesInfo += `- ${moduleName}: ${JSON.stringify(moduleData)}\n`;
-          }
-        }
-
-        // Формируем информацию об итоговой цене
-        let totalPriceInfo = '';
-        if (totalPriceWithDiscount !== null && totalPriceWithDiscount !== undefined) {
-          totalPriceInfo = `\nИтоговая цена со скидкой: ${totalPriceWithDiscount}`;
-        }
-
-        // Объединяем всю информацию
-        const combinedInfo = `
-Имя: ${this.leadData.name}
-Телефон: ${this.leadData.phone}
-${selectedModulesInfo}
-${totalPriceInfo}
-        `.trim();
-
-        console.log('Отправляемая информация:', combinedInfo);
-
-        // Формируем объект для отправки
-        const dataToSend = {
-          name: combinedInfo,
-          phone: this.leadData.phone
-        };
-
-        console.log('Данные для отправки:', dataToSend);
-
-        // Отправляем данные на сервер
-        const response = await axios.post('/api/create-lead', dataToSend);
-
-        if (response.status === 200) {
-          this.message = 'Заявка успешно отправлена!';
-          this.isError = false;
-          // Очистка формы
-          this.leadData.name = '';
-          this.leadData.phone = '';
-          // Очистка localStorage
-          localStorage.removeItem('preCalcData');
-        } else {
-          this.message = 'Ошибка при отправке заявки.';
-          this.isError = true;
-          console.error('Ошибка:', response.data);
-        }
-      } catch (error) {
-        this.message = 'Ошибка при отправке заявки.';
-        this.isError = true;
-        console.error('Ошибка:', error);
+    checkIsDesktop() {
+      if (typeof window !== 'undefined') {
+        this.isDesktop = window.innerWidth >= 1024; // Обновляем значение при изменении размера окна
       }
     },
+    handleScroll() {
+      if (this.isDesktop || !this.showSurvey) return; // Не показываем кнопку на десктопе или если опросник скрыт
+      const scrollPosition = window.scrollY || window.pageYOffset;
+      this.showScrollToTopButton = scrollPosition > 300;
+    },
+    scrollToForm() {
+      if (this.$refs.contactForm) {
+        // Используем scrollIntoView для плавной прокрутки к форме
+        this.$refs.contactForm.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    async submitLead() {
+      // Ваш код для отправки данных формы
+    },
     submitSurvey() {
-      // Не отправляем данные опросника
-      console.log('Ответы на опрос:', this.surveyQuestions);
+      // Ваш код для обработки опроса
     },
   }
 };
@@ -247,5 +228,20 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* Стили для большого переключателя */
+.slider.round.big {
+  width: 80px;
+  height: 38px;
+}
+
+.slider.round.big:before {
+  width: 30px;
+  height: 30px;
+}
+
+input:checked + .slider.round.big:before {
+  transform: translateX(40px);
 }
 </style>

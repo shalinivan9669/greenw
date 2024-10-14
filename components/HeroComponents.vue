@@ -1,3 +1,4 @@
+<!-- components/HeroSection.vue -->
 <template>
   <section class="bg-[#efefef] py-12">
     <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
@@ -30,65 +31,51 @@
     <div ref="statsSection" class="bg-custom-green py-12 mt-12">
       <div class="container mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-white">
         <div v-for="item in stats" :key="item.label" class="stat-item">
-          <h3 class="text-3xl font-bold border-b-4 border-white w-[150px] mx-auto pb-2">{{ formattedStats[item.label] }}</h3>
+          <h3 class="text-3xl font-bold border-b-4 border-white w-[150px] mx-auto pb-2">
+            {{ Math.round(formattedStats[item.label]) }}
+          </h3>
           <p class="mt-2">{{ item.label }}</p>
         </div>
       </div>
     </div>
 
     <!-- Модальное окно для заказа -->
-    <Suspense>
-      <template #default>
-        <LazyOrderModal v-if="showOrderModal" :leadData="leadData" @close="closeOrderModal" @submit="handleSubmit" />
-      </template>
-      <template #fallback>
-        <!-- Можно добавить спиннер или другой индикатор загрузки -->
-      </template>
-    </Suspense>
+    <OrderModal v-if="isOrderModalOpen" :block="block" @close-order-modal="closeOrderModal" />
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, defineAsyncComponent } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue';
 import imageSrc from '@/assets/s.webp'; // Импорт изображения
+import OrderModal from '@/components/OrderModal.vue'; // Импортируем OrderModal напрямую
 
-// Ленивая загрузка модального окна
-const LazyOrderModal = defineAsyncComponent(() => import('@/components/OrderModal.vue'));
+const isOrderModalOpen = ref(false);
 
-const showOrderModal = ref(false);
-
-// Открыть модальное окно
 const openOrderModal = () => {
-  showOrderModal.value = true;
+  isOrderModalOpen.value = true;
 };
 
-// Закрыть модальное окно
 const closeOrderModal = () => {
-  showOrderModal.value = false;
+  isOrderModalOpen.value = false;
 };
 
-// Данные для формы заказа
-const leadData = ref({
-  name: '',
-  phone: ''
-});
-const message = ref('');
-const isError = ref(false);
-const phoneError = ref('');
+// Объект block для передачи в OrderModal
+const block = {
+  name: 'Рекламную кампанию',
+};
 
 // Статистика
 const stats = ref([
   { label: 'лифтов', value: 300 },
   { label: 'жилых домов', value: 150 },
   { label: 'ежедневный охват аудитории', value: 36000 },
-  { label: 'ежемесячный охват аудитории', value: 1080000 }
+  { label: 'ежемесячный охват аудитории', value: 1080000 },
 ]);
 
 // Форматирование статистики (анимация чисел)
 const formattedStats = ref({});
 const animateNumbers = () => {
-  stats.value.forEach(item => {
+  stats.value.forEach((item) => {
     formattedStats.value[item.label] = 0;
     const target = item.value;
     const increment = target / 200;
@@ -104,61 +91,30 @@ const animateNumbers = () => {
   });
 };
 
-// Валидация телефона для Казахстана
-const validatePhone = () => {
-  const kazakhstanPhoneRegex = /^\+7\d{9}$/;
-  if (!kazakhstanPhoneRegex.test(leadData.value.phone)) {
-    phoneError.value = 'Введите корректный номер телефона в формате +7XXXXXXXXX';
-  } else {
-    phoneError.value = '';
-  }
-};
-
-// Обработка отправки формы
-const handleSubmit = async (data) => {
-  leadData.value = data;
-  validatePhone();
-
-  if (phoneError.value) {
-    message.value = 'Ошибка в поле "Телефон". Исправьте перед отправкой.';
-    isError.value = true;
-    return;
-  }
-
-  try {
-    // Отправляем POST-запрос с данными лида на сервер
-    const response = await axios.post('/api/create-lead', leadData.value);
-
-    if (response.status === 200) {
-      message.value = 'Заявка успешно отправлена!';
-      isError.value = false;
-      leadData.value.name = '';
-      leadData.value.phone = '';
-    } else {
-      message.value = 'Ошибка при отправке заявки.';
-      isError.value = true;
-      console.error('Ошибка:', response.data);
-    }
-  } catch (error) {
-    message.value = 'Ошибка при отправке заявки.';
-    isError.value = true;
-    console.error('Ошибка:', error);
-  }
-};
-
 // Использование Intersection Observer для запуска анимации при видимости
 const statsSection = ref(null);
 import { useIntersectionObserver } from '@vueuse/core';
 
-useIntersectionObserver(statsSection, ([{ isIntersecting }]) => {
-  if (isIntersecting) {
-    animateNumbers();
+useIntersectionObserver(
+  statsSection,
+  ([{ isIntersecting }]) => {
+    if (isIntersecting) {
+      animateNumbers();
+    }
+  },
+  {
+    threshold: 0.5,
   }
-}, {
-  threshold: 0.5
-});
+);
 </script>
 
 <style scoped>
 /* Tailwind CSS используется для стилей, дополнительные стили можно добавить здесь */
+
+.text-custom-green {
+  color: #98C850;
+}
+.bg-custom-green {
+  background-color: #98C850;
+}
 </style>
