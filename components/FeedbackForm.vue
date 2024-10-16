@@ -157,10 +157,80 @@ export default {
       }
     },
     async submitLead() {
-      // Ваш код для отправки данных формы
+      console.log('submitLead called');
+
+      try {
+        // Считываем актуальные данные из localStorage при отправке
+        const preCalcData = localStorage.getItem('preCalcData');
+        if (!preCalcData) {
+          this.message = 'Нет данных для отправки.';
+          this.isError = true;
+          console.warn('Нет данных в localStorage по ключу preCalcData');
+          return;
+        }
+
+        const parsedData = JSON.parse(preCalcData);
+        console.log('Данные из localStorage:', parsedData);
+
+        const { selectedModules, totalPriceWithDiscount } = parsedData;
+
+        // Формируем информацию о выбранных модулях
+        let selectedModulesInfo = '';
+        if (selectedModules && Object.keys(selectedModules).length > 0) {
+          selectedModulesInfo = '\nВыбранные модули:\n';
+          for (const [moduleName, moduleData] of Object.entries(selectedModules)) {
+            selectedModulesInfo += `- ${moduleName}: ${JSON.stringify(moduleData)}\n`;
+          }
+        }
+
+        // Формируем информацию об итоговой цене
+        let totalPriceInfo = '';
+        if (totalPriceWithDiscount !== null && totalPriceWithDiscount !== undefined) {
+          totalPriceInfo = `\nИтоговая цена со скидкой: ${totalPriceWithDiscount}`;
+        }
+
+        // Объединяем всю информацию
+        const combinedInfo = `
+Имя: ${this.leadData.name}
+Телефон: ${this.leadData.phone}
+${selectedModulesInfo}
+${totalPriceInfo}
+        `.trim();
+
+        console.log('Отправляемая информация:', combinedInfo);
+
+        // Формируем объект для отправки
+        const dataToSend = {
+          name: combinedInfo,
+          phone: this.leadData.phone
+        };
+
+        console.log('Данные для отправки:', dataToSend);
+
+        // Отправляем данные на сервер
+        const response = await axios.post('/api/create-lead', dataToSend);
+
+        if (response.status === 200) {
+          this.message = 'Заявка успешно отправлена!';
+          this.isError = false;
+          // Очистка формы
+          this.leadData.name = '';
+          this.leadData.phone = '';
+          // Очистка localStorage
+          localStorage.removeItem('preCalcData');
+        } else {
+          this.message = 'Ошибка при отправке заявки.';
+          this.isError = true;
+          console.error('Ошибка:', response.data);
+        }
+      } catch (error) {
+        this.message = 'Ошибка при отправке заявки.';
+        this.isError = true;
+        console.error('Ошибка:', error);
+      }
     },
     submitSurvey() {
-      // Ваш код для обработки опроса
+      console.log('Ответы на опрос:', this.surveyQuestions);
     },
   }
 };
