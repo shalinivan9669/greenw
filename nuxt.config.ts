@@ -99,7 +99,7 @@ export default defineNuxtConfig({
             })
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
     
-            ym(98672200, "init", { 
+            ym(${process.env.VITE_YANDEX_METRIKA_ID}, "init", { 
               clickmap:true, 
               trackLinks:true, 
               accurateTrackBounce:true, 
@@ -109,17 +109,37 @@ export default defineNuxtConfig({
           type: 'text/javascript',
           charset: 'utf-8',
           body: true, // Размещает скрипт перед закрывающим тегом </body>
+        },
+        // Добавление Google Tag (gtag.js)
+        {
+          hid: 'google-tag',
+          src: `https://www.googletagmanager.com/gtag/js?id=${process.env.VITE_GOOGLE_TAG_ID}`,
+          async: true,
+        },
+        {
+          hid: 'google-gtag',
+          innerHTML: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+        
+            gtag('config', '${process.env.VITE_GOOGLE_TAG_ID}');
+          `,
+          type: 'text/javascript',
+          charset: 'utf-8',
+          body: true,
         }
       ],
       noscript: [
         {
           hid: 'yandex-metrika-noscript',
-          innerHTML: `<div><img src="https://mc.yandex.ru/watch/98672200" style="position:absolute; left:-9999px;" alt="" /></div>`,
-        }
+          innerHTML: `<div><img src="https://mc.yandex.ru/watch/${process.env.VITE_YANDEX_METRIKA_ID}" style="position:absolute; left:-9999px;" alt="" /></div>`,
+        },
       ],
       __dangerouslyDisableSanitizersByTagID: {
         'yandex-metrika': ['innerHTML'],
         'yandex-metrika-noscript': ['innerHTML'],
+        'google-gtag': ['innerHTML'],
       }
     },
     buildAssetsDir: '/_nuxt/', // Директория для статических активов
@@ -141,5 +161,13 @@ export default defineNuxtConfig({
 
   plugins: [
     '~/plugins/observe-visibility.js' // Ваши плагины
+  ],
+
+  // Опционально: Добавление компрессии
+  serverMiddleware: [
+    {
+      path: '/',
+      handler: compression()
+    }
   ],
 })
