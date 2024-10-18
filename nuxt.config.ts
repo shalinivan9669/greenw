@@ -3,7 +3,6 @@ import compression from 'compression'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  
 
   app: {
     head: {
@@ -49,7 +48,6 @@ export default defineNuxtConfig({
         { name: 'geo.position', content: '49.806,73.085' }, // Примерные координаты Караганды
         { name: 'ICBM', content: '49.806,73.085' },
       ],
-      
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.ico' },
         // Дополнительные ссылки на ресурсы
@@ -84,7 +82,45 @@ export default defineNuxtConfig({
           }
           `,
         },
+        // Добавление Яндекс.Метрики
+        {
+          hid: 'yandex-metrika',
+          innerHTML: `
+            (function(m,e,t,r,i,k,a){
+              m[i]=m[i]||function(){
+                (m[i].a=m[i].a||[]).push(arguments)
+              };
+              m[i].l=1*new Date();
+              for (var j = 0; j < document.scripts.length; j++) {
+                if (document.scripts[j].src === r) { return; }
+              }
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+              k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+            })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+            ym(98672200, "init", { 
+              clickmap:true, 
+              trackLinks:true, 
+              accurateTrackBounce:true, 
+              webvisor:true 
+            });
+          `,
+          type: 'text/javascript',
+          charset: 'utf-8',
+          body: true, // Размещает скрипт перед закрывающим тегом </body>
+        }
       ],
+      noscript: [
+        {
+          hid: 'yandex-metrika-noscript',
+          innerHTML: `<div><img src="https://mc.yandex.ru/watch/98672200" style="position:absolute; left:-9999px;" alt="" /></div>`,
+        }
+      ],
+      __dangerouslyDisableSanitizersByTagID: {
+        'yandex-metrika': ['innerHTML'],
+        'yandex-metrika-noscript': ['innerHTML'],
+      }
     },
     buildAssetsDir: '/_nuxt/', // Директория для статических активов
   },
@@ -106,6 +142,4 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/observe-visibility.js' // Ваши плагины
   ],
-
-   
 })
