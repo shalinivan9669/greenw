@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Tests
+
+Run the unit tests with Node's built in runner:
+
+```bash
+npm test
+```

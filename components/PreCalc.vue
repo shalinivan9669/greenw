@@ -86,6 +86,7 @@
 
 <script>
 import { ref, watch } from 'vue';
+import { formatBlockName } from '~/utils/formatBlockName.js';
 
 export default {
   props: {
@@ -194,13 +195,7 @@ export default {
     totalPriceWithDiscount: 'saveToLocalStorage'
   },
   methods: {
-    formatBlockName(block) {
-      const match = block.match(/block(\d+)/i);
-      if (match) {
-        return `Блок ${match[1]}`;
-      }
-      return block;
-    },
+    formatBlockName,
     startIncreasingMonths() {
       this.scrollInterval = setInterval(() => {
         if (this.selectedMonths < 12) {

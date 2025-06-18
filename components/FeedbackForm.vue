@@ -133,7 +133,7 @@ export default {
       window.addEventListener('scroll', this.handleScroll);
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.checkIsDesktop);
       window.removeEventListener('scroll', this.handleScroll);
