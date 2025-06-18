@@ -170,4 +170,9 @@ export default defineNuxtConfig({
       handler: compression()
     }
   ],
+
+  runtimeConfig: {
+    amoToken: process.env.AMOCRM_ACCESS_TOKEN,
+    amoSubdomain: process.env.AMOCRM_SUBDOMAIN,
+  }
 })
