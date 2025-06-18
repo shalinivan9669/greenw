@@ -25,7 +25,7 @@
     <!-- Дополнительные асинхронные компоненты -->
     <Suspense>
       <template #default>
-        <AsyncMap2GisWraper/>
+        <AsyncMap2GisWrapper/>
       </template>
       <template #fallback>
         <div>Загрузка карты...</div>
@@ -66,7 +66,7 @@ import Footer from '@/components/Footer.vue';
 // Динамическая загрузка компонентов
 const AsyncModule = defineAsyncComponent(() => import('~/components/Module.vue'));
 const AsyncFeedbackForm = defineAsyncComponent(() => import('@/components/FeedbackForm.vue'));
-const AsyncMap2GisWraper = defineAsyncComponent(() => import('~/components/Map2GisWraper.vue'));
+const AsyncMap2GisWrapper = defineAsyncComponent(() => import('~/components/Map2GisWrapper.vue'));
 const AsyncSlider = defineAsyncComponent(() => import('@/components/Slider.vue'));
 const AsyncFaq = defineAsyncComponent(() => import('@/components/Faq.vue'));
 </script>
