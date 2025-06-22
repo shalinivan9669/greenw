@@ -190,7 +190,7 @@
             <strong>Посмотрите видео процесса монтажа стенда для рекламы в Караганде:</strong>
           </p>
           <!-- Кнопка перехода в TikTok -->
-          <a href="https://www.tiktok.com/@greenway_reklama" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <a href="https://www.tiktok.com/@greenw.kz" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Смотреть видео в TikTok
           </a>
         </div>

@@ -76,7 +76,7 @@ export default defineNuxtConfig({
             },
             "sameAs": [
               "https://www.instagram.com/greenw.kz/",
-              "https://www.tiktok.com/@greenway_reklama",
+              "https://www.tiktok.com/@greenw.kz",
               "https://api.whatsapp.com/send/?phone=77086755846"
             ]
           }

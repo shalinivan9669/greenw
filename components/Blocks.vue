@@ -1,7 +1,7 @@
 <!-- components/BlocksSection.vue -->
 <template>
   <section class="bg-gradient-to-r from-green-100 to-gray-100 py-16">
-    <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
+    <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 px-4">
       <BlockCard
         v-for="block in blocks"
         :key="block.id"
@@ -36,7 +36,8 @@ import OrderModal from '@/components/OrderModal.vue' // Предполагает
 // Импорт изображений (если они хранятся в assets)
 import image1 from '@/assets/1b.webp'
 import image2 from '@/assets/2b.webp'
-import image3 from '@/assets/3b.webp'
+import image3 from '@/assets/33b.png'
+import image4  from '@/assets/4b.png'
 
 // Данные блоков
 const blocks = ref([
@@ -44,10 +45,10 @@ const blocks = ref([
     id: 1,
     name: 'Блок 1',
     image: image1,
-    houses: '34',
-    lifts: '105',
-    apartments: '4001',
-    population: '15261',
+    houses: '40',
+    lifts: '102',
+    apartments: '3 894',
+    population: '11 682',
     description:
       'Дома расположены по улицам: Строителей, Орбита, Гапеева, Муканова, пр. Шахтеров, Карбышева, К. Дюсембекова, Сатыбалдына, Язева и Университетская'
   },
@@ -55,10 +56,10 @@ const blocks = ref([
     id: 2,
     name: 'Блок 2',
     image: image2,
-    houses: '29',
-    lifts: '104',
-    apartments: '4459',
-    population: '15617',
+    houses: '60',
+    lifts: '108',
+    apartments: '3 987',
+    population: '11 961',
     description:
       'Улицы: Гульдер 1, Степной 1, Степной 2, Степной 3, Степной 4, Шахтеров, Таттимбета, Сарыарка. Дома расположены на главных улицах города, обеспечивая доступ к ключевым инфраструктурным объектам, включая школы и магазины.'
   },
@@ -66,13 +67,25 @@ const blocks = ref([
     id: 3,
     name: 'Блок 3',
     image: image3,
-    houses: '26',
-    lifts: '100',
-    apartments: '4459',
-    population: '15617',
+    houses: '19',
+    lifts: '102',
+    apartments: '3 201',
+    population: '9 603',
     description:
       'ЖК: Байсанат 1, 2, 3, Орда, Новый Степной, Гульдер, Таугуль, Орлеу, Монако. Жилые комплексы находятся в развивающихся районах, предоставляя современное жилье с хорошей транспортной доступностью и удобствами для жителей.'
+  },
+  {
+    id: 4,
+    name: 'Блок 4',
+    image: image4,
+    houses: '36',
+    lifts: '102',
+    apartments: '3 484',
+    population: '10 452',
+    description:
+      'Районы: Восток-1, Восток-2, Восток-3, Восток-5, Сырдарья, Голубые пруды. Также входят 10 подъездов нового ЖК Орда. Широкая аудитория — от пенсионеров до молодых семей. Жильё с устоявшейся инфраструктурой и высокой плотностью заселения.'
   }
+  
 ])
 
 // Управление модальными окнами

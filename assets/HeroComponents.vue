@@ -15,7 +15,7 @@
           <button @click="openOrderModal" class="bg-custom-green  text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Заказать рекламу
           </button>
-          <a href="https://www.tiktok.com/@greenway_reklama" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <a href="https://www.tiktok.com/@greenw.kz" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Смотреть видео
           </a>
         </div>

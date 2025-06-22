@@ -20,6 +20,7 @@
     "@vueuse/core": "^11.1.0",
     "axios": "^1.7.7",
     "compression": "^1.7.4",
+    "granim": "^2.0.0",
     "nuxt": "^3.13.0",
     "swiper": "^11.1.14",
     "vue": "latest",
