@@ -73,7 +73,7 @@
 
             <!-- Экраны и LED-стенды -->
             <NuxtLink
-              to="/screens"
+              to="/led"
               class="group relative flex flex-col items-start p-12 bg-lime-300/80 backdrop-blur-md rounded-2xl border border-white/40 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
             >
               <div class="mb-6 w-full text-center">
