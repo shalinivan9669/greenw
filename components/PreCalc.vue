@@ -120,6 +120,14 @@ export default {
     A7: 30000,
     A9: 10000,
   },
+  block4: {
+      A3: 240000,
+      A4: 120000,
+      A5: 60000,
+      A6: 30000,
+      A7: 20000,
+      A9: 5000,
+    },
     });
 
     return { prices };
@@ -169,14 +177,37 @@ export default {
       return total;
     },
     totalPriceWithDiscount() {
-      const discount = this.calculateBonus() / 100;
-      return Math.round(this.totalPrice * this.selectedMonths * (1 - discount));
-    },
+    const discount = this.calculateBonus() / 100;
+
+    let discountableSum = 0;
+    let nonDiscountableSum = 0;
+
+    // разбираем все выбранные модули по блокам
+    for (const block in this.formattedSelectedModules) {
+      const modules = this.formattedSelectedModules[block];
+      for (const type in modules) {
+        const count = modules[type];
+        const price = this.prices[block]?.[type] || 0;
+        // A7 и A9 — без скидки
+        if (type === 'A7' || type === 'A9') {
+          nonDiscountableSum += price * count;
+        } else {
+          discountableSum += price * count;
+        }
+      }
+    }
+
+    // считаем итог с учётом месяцев
+    const discountedTotal = discountableSum * this.selectedMonths * (1 - discount);
+    const fullPriceTotal = nonDiscountableSum * this.selectedMonths;
+
+    return Math.round(discountedTotal + fullPriceTotal);
+  },
     hasMultipleFormats() {
       return Object.values(this.formattedSelectedModules).some(modules => Object.keys(modules).length > 1);
     },
     isAllBlocks() {
-      return this.totalBlocks === 3;
+      return this.totalBlocks === 4;
     },
     isTwoBlocks() {
       return this.totalBlocks === 2;

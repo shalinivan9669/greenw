@@ -9,37 +9,37 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'ru',
       },
-      title: 'Реклама в лифтах и на экранах в  Караганде | GREENWAY — Реклама в Караганде',
+      title: 'Реклама в лифтах и на экранах в  Караганде | GreenW — Реклама в Караганде',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
           content:
-            'Эффективная реклама в лифтах Караганды от GREENWAY. Увеличьте охват рекламы в Караганде. Разместив рекламу в 300 лифтах  и привлеките новых клиентов уже сегодня! Заказать рекламу !',
+            'Эффективная реклама в лифтах Караганды от GreenW. Увеличьте охват рекламы в Караганде. Разместив рекламу в 300 лифтах  и привлеките новых клиентов уже сегодня! Заказать рекламу !',
         },
         {
           name: 'keywords',
           content:
-            'Реклама, Реклама в лифтах Караганда, Реклама в Караганде, Реклама Караганада, GREENWAY, реклама в лифтах , рекламное агентство Караганда, Рекламные стенды Караганда, размещение рекламы, рекламные услуги Караганда',
+            'Реклама, Реклама в лифтах Караганда, Реклама в Караганде, Реклама Караганада, GreenW, реклама в лифтах , рекламное агентство Караганда, Рекламные стенды Караганда, размещение рекламы, рекламные услуги Караганда',
         },
         // Open Graph мета-теги
-        { property: 'og:title', content: 'Реклама в лифтах Караганды | GREENWAY' },
+        { property: 'og:title', content: 'Реклама в лифтах Караганды | GreenW' },
         {
           property: 'og:description',
           content:
-            'GREENWAY — первые в Караганде по рекламе в лифтах. Привлекайте новых клиентов и увеличивайте продажи с помощью эффективной рекламы в лифтах.',
+            'GreenW — первые в Караганде по рекламе в лифтах. Привлекайте новых клиентов и увеличивайте продажи с помощью эффективной рекламы в лифтах.',
         },
         { property: 'og:image', content: 'https://yourwebsite.com/og-image.jpg' },
         { property: 'og:url', content: 'https://yourwebsite.com' },
         { property: 'og:type', content: 'website' },
         // Twitter Card мета-теги
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:title', content: 'Реклама в лифтах Караганды | GREENWAY' },
+        { name: 'twitter:title', content: 'Реклама в лифтах Караганды | GreenW' },
         {
           name: 'twitter:description',
           content:
-            'Узнайте, как GREENWAY может помочь вашему бизнесу расти через эффективную рекламу в лифтах Караганды.',
+            'Узнайте, как GreenW может помочь вашему бизнесу расти через эффективную рекламу в лифтах Караганды.',
         },
         { name: 'twitter:image', content: 'https://yourwebsite.com/og-image.jpg' },
         { name: 'language', content: 'ru' },
@@ -60,7 +60,7 @@ export default defineNuxtConfig({
           {
             "@context": "https://schema.org",
             "@type": "AdvertisingAgency",
-            "name": "GREENWAY",
+            "name": "GreenW",
             "url": "https://yourwebsite.com",
             "logo": "https://yourwebsite.com/logo.png",
             "address": {

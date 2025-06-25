@@ -7,7 +7,7 @@
       <NuxtLink to="/" class="flex items-center space-x-2">
         <img
           :src="logo"
-          alt="Логотип рекламного агентства GREENWAY в Караганде"
+          alt="Логотип рекламного агентства GreenW в Караганде"
           class="h-16"
         />
         <span class="font-bold text-lg text-custom-green">
@@ -47,10 +47,10 @@
         <NuxtLink to="/we"     class="text-gray-800 hover:text-custom-green">О нас</NuxtLink>
       </nav>
 
-      <!-- Телефон десктоп -->
+      <!-- Телефон десктоп (теперь WhatsApp) -->
       <div class="hidden md:block">
         <a
-          href="tel:+77086755846"
+          href="https://wa.me/77086755846"
           class="font-normal text-lg text-black hover:text-custom-green"
           target="_blank" rel="noopener noreferrer"
         >
@@ -70,7 +70,7 @@
       <NuxtLink to="/we"     class="block text-gray-800 hover:text-custom-green">О нас</NuxtLink>
 
       <a
-        href="tel:+77086755846"
+        href="https://wa.me/77086755846"
         class="block text-gray-800 hover:text-custom-green font-bold text-lg pt-2"
         target="_blank" rel="noopener noreferrer"
       >

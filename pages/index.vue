@@ -54,15 +54,15 @@
             <!-- Лифты -->
             <NuxtLink
               to="/lift"
-              class="group relative flex flex-col items-start p-12 bg-lime-300/80 backdrop-blur-md rounded-2xl border border-white/50 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
+              class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/50 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
             >
               <div class="mb-6 w-full text-center">
                 <img src="/assets/svg/lift.svg" alt="Реклама Караганда" class="w-20 h-20 mx-auto" />
               </div>
-              <h3 class="text-2xl font-semibold text-black mb-3">
+              <h3 class="text-2xl font-semibold text-white mb-3">
                 Реклама в лифтах
               </h3>
-              <ul class="mt-4 space-y-2 text-black text-left">
+              <ul class="mt-4 space-y-2 text-white text-left">
                 <li><span class="font-semibold">Формат:</span> бумажный модуль внутри лифта</li>
                 <li><span class="font-semibold">450+ лифтов</span> по всему городу</li>
                 <li><span class="font-semibold">Ежедневный охват:</span> до 48 000 человек</li>
@@ -74,15 +74,15 @@
             <!-- Экраны и LED-стенды -->
             <NuxtLink
               to="/led"
-              class="group relative flex flex-col items-start p-12 bg-lime-300/80 backdrop-blur-md rounded-2xl border border-white/40 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
+              class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/40 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
             >
               <div class="mb-6 w-full text-center">
                 <img src="/assets/svg/led.svg" alt="Реклама Караганда лед экраны" class="w-20 h-20 mx-auto" />
               </div>
-              <h3 class="text-2xl font-semibold text-black mb-3">
+              <h3 class="text-2xl font-semibold text-white mb-3">
                 Реклама на экранах и LED-стендах
               </h3>
-              <ul class="mt-4 space-y-2 text-black text-left">
+              <ul class="mt-4 space-y-2 text-white text-left">
                 <li><span class="font-semibold">Формат:</span> динамичный ролик на экране</li>
                 <li><span class="font-semibold">22 монитора</span> в ТД, на вокзале и улицах</li>
                 <li><span class="font-semibold">200–400 показов</span> в сутки</li>

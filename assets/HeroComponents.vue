@@ -4,7 +4,7 @@
    <!-- Текстовая часть -->
    <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
-          Эффективная реклама в лифтах Караганды от GREENWAY
+          Эффективная реклама в лифтах Караганды от GREENW
         </h1>
         <p class="text-gray-700 mt-4 text-lg">
           Разместите свою рекламу в 300 лифтах жилых домов и привлеките новых клиентов уже сегодня!

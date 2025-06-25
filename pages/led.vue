@@ -13,7 +13,7 @@
           class="absolute inset-0 bg-[url('/pattern-screens.svg')] opacity-10 pointer-events-none"
         ></div>
 
-        <div class="relative container mx-auto px-6 py-32 text-center">
+        <div class="relative container mx-auto px-6 pt-12 pb-24 text-center">
           <span
             class="inline-block bg-white text-[#4caf4f] font-bold px-6 py-2 rounded-full mb-6 uppercase tracking-wide shadow-md"
           >
@@ -33,7 +33,9 @@
             <li>22 экрана по всему городу — ТЦ, улицы, вокзалы</li>
             <li>200–400 показов в день</li>
             <li>Хронометраж до 30 секунд</li>
-            <li>Узнаваемость и «вижу каждый день»</li>
+            <li>Узнаваемость </li>
+            <li>Охваты</li>
+            <li>Эффект "вижу каждый день"</li>
           </ul>
 
           <p class="text-4xl md:text-5xl font-bold text-white mb-2 drop-shadow-sm">
@@ -117,26 +119,49 @@
 
       <!-- ░░░ Галерея экранов ░░░ -->
       <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-          <h2
-            class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] to-[#a8cc55]"
-          >
-            Галерея экранов
-          </h2>
+    <div class="container mx-auto px-6">
+      <h2
+        class="text-3xl md:text-4xl font-extrabold text-center mb-12
+               text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] to-[#a8cc55]"
+      >
+        Галерея экранов
+      </h2>
 
-          <div
-            class="flex space-x-6 overflow-x-auto snap-x snap-mandatory pb-4 lg:grid lg:grid-cols-4 lg:gap-6 lg:space-x-0"
+      <div
+        class="flex space-x-6 overflow-x-auto snap-x snap-mandatory pb-4
+               lg:grid lg:grid-cols-4 lg:gap-6 lg:space-x-0"
+      >
+        <div
+         v-for="(img, idx) in galleryItems"
+        :key="idx"
+        class="snap-center flex-shrink-0 w-80 lg:w-full flex flex-col items-center cursor-pointer"
+       >
+          <!-- 1) подпись -->
+          <p
+            @click="openGalleryModal(img.type)"
+            class="cursor-pointer text-center text-2xl font-semibold text-gray-800 mb-2"
           >
-            <div
-              v-for="(img, idx) in galleryItems"
-              :key="idx"
-             class="snap-center flex-shrink-0 w-80 lg:w-full bg-gray-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
->
-              <img :src="img.src" :alt="img.alt" class="object-cover w-full h-full" loading="lazy" />
-            </div>
-          </div>
+            {{ img.caption }}
+          </p>
+
+          <!-- 2) собственно картинка -->
+           <div
+          @click="openGalleryModal(img.type)"
+          class="bg-gray-200 rounded-xl overflow-hidden
+                 shadow-lg hover:shadow-2xl transition-shadow duration-300
+                 w-full h-[28rem] "
+        >
+          <img
+            :src="img.src"
+            :alt="img.alt"
+            class="object-cover w-full h-full"
+            loading="lazy"
+          />
         </div>
-      </section>
+        </div>
+      </div>
+    </div>
+  </section>
 
       <!-- ░░░ Почему это работает ░░░ -->
       <section class="py-24 bg-white">
@@ -259,6 +284,31 @@
       :block="modalBlock"
       @close-order-modal="closeOrderModal"
     />
+
+    <!-- Модалка галереи -->
+    <div
+      v-if="showGalleryModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
+    >
+      <div class="bg-white rounded-lg overflow-hidden max-w-4xl w-full">
+        <div class="flex justify-end p-2">
+          <button
+            @click="closeGalleryModal"
+            class="text-gray-600 hover:text-gray-900 text-2xl leading-none"
+          >&times;</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 p-4">
+          <img
+            v-for="(src, i) in galleryModalPhotos"
+            :key="i"
+            :src="src"
+            class="object-cover w-full rounded-md"
+            style="aspect-ratio:3/4;"
+            alt="Gallery photo"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -280,7 +330,7 @@ const screenTypes = [
     line5: '💰 От 20 000 ₸ в месяц'
   },
   {
-    title: '🔹 Уличные SmartEco',
+    title: '🔹 Уличные Smart Eco',
     line1: 'Парк-SmartEco, Сквер-SmartEco',
     line2: '📍 Центральный парк, перекрёсток Абдирова — Ерубаева',
     line3: '📐 Размер: 1,8 × 1 м',
@@ -308,12 +358,42 @@ const screenTypes = [
 ]
 
 /* ───────────────────────────── Галерея ───────────────────────────── */
-const galleryItems = [
-  { src: '/exampleled/GCP.jpg', alt: 'Экран в ТЦ' },
-  { src: '/exampleled/smarteco.jpg', alt: 'Уличный экран SmartEco' },
-  { src: '/exampleled/ledbig.jpg', alt: 'Большой экран SmartMedia' },
-  { src: '/exampleled/tair.jpg', alt: 'Экраны в комплексе Таир' }
+const galleryItems =[
+  { type: 'GCP',      src: '/exampleled/GCP.jpg',      alt: 'Экран в ТЦ',      caption: 'Внутренние экраны' },
+  { type: 'smarteco', src: '/exampleled/smarteco.jpg', alt: 'Уличный экран SmartEco', caption: 'Уличные Smart Eco' },
+  { type: 'ledbig',   src: '/exampleled/ledbig.jpg',   alt: 'Большой экран SmartMedia', caption: 'Большие уличные' },
+  { type: 'tair',     src: '/exampleled/tair.jpg',     alt: 'Экраны в комплексе Таир', caption: 'Комплекс Таир' },
 ]
+
+/* Заглушки: по 5 изображений, кроме smarteco – там 3 */
+const photosMap: Record<string, string[]> = {
+  GCP: [
+    '/exampleled/GCP1.png',
+    '/exampleled/GCP2.png',
+    '/exampleled/GCP3.jpg',
+    '/exampleled/GCP4.jpg',
+    '/exampleled/GCP5.png',
+  ],
+  smarteco: [
+    '/exampleled/smarteco1.png',
+    '/exampleled/smarteco2.png',
+    '/exampleled/smarteco3.png',
+  ],
+  ledbig: [
+    '/exampleled/ledbig1.png',
+    '/exampleled/ledbig2.png',
+    '/exampleled/ledbig3.png',
+    '/exampleled/ledbig4.png',
+    '/exampleled/ledbig5.png',
+  ],
+  tair: [
+    '/exampleled/tair1.png',
+    '/exampleled/tair2.png',
+    '/exampleled/tair3.png',
+    '/exampleled/tair4.png',
+    '/exampleled/tair5.png',
+  ],
+}
 
 /* ──────────────────────── Почему это работает ─────────────────────── */
 const whyPoints = [
@@ -326,48 +406,37 @@ const whyPoints = [
 
 /* ────────────────────────── Когда полезно ────────────────────────── */
 const whenUsefulList = [
-  {
-    icon: '🚀',
-    title: 'Новая точка или бизнес',
-    text: 'LED-экран мгновенно расскажет о вас всему району и создаст первые лиды.'
-  },
-  {
-    icon: '⚡️',
-    title: 'Короткая акция',
-    text: 'Ролик можно показать 2 800 раз уже на этой неделе — максимум охвата за минимум времени.'
-  },
-  {
-    icon: '🎯',
-    title: 'Высокая конкуренция',
-    text: 'Сочный ролик на экране выделит вас среди остальных предложений.'
-  },
-  {
-    icon: '🤝',
-    title: 'Рост доверия',
-    text: 'Появление на большом экране в ТЦ или на вокзале повышает статус бренда.'
-  },
-  {
-    icon: '📈',
-    title: 'Сайт без заявок',
-    text: 'Прямой call-to-action на экране направит аудиторию сразу в WhatsApp или Instagram.'
-  },
-  {
-    icon: '💡',
-    title: 'Альтернатива билбордам',
-    text: 'LED-реклама ярче, динамичнее и при этом дешевле классической наружки.'
-  }
+  { icon: '🚀', title: 'Новая точка или бизнес', text: 'LED-экран мгновенно расскажет о вас всему району и создаст первые лиды.' },
+  { icon: '⚡️', title: 'Короткая акция', text: 'Ролик можно показать 2 800 раз уже на этой неделе — максимум охвата за минимум времени.' },
+  { icon: '🎯', title: 'Высокая конкуренция', text: 'Сочный ролик на экране выделит вас среди остальных предложений.' },
+  { icon: '🤝', title: 'Рост доверия', text: 'Появление на большом экране в ТЦ или на вокзале повышает статус бренда.' },
+  { icon: '📈', title: 'Сайт без заявок', text: 'Прямой call-to-action на экране направит аудиторию сразу в WhatsApp или Instagram.' },
+  { icon: '💡', title: 'Альтернатива билбордам', text: 'LED-реклама ярче, динамичнее и при этом дешевле классической наружки.' }
 ]
 
-// состояние модалки
-const showOrderModal = ref(false)
-const modalBlock     = ref<{ name: string }>({ name: '' })
+// состояния модалок
+const showOrderModal    = ref(false)
+const modalBlock        = ref<{ name: string }>({ name: '' })
 
+const showGalleryModal  = ref(false)
+const galleryModalPhotos= ref<string[]>([])
+
+// Заказ звонка
 function openOrderModal(name: string) {
   modalBlock.value = { name }
   showOrderModal.value = true
 }
 function closeOrderModal() {
   showOrderModal.value = false
+}
+
+// Галерея
+function openGalleryModal(type: string) {
+  galleryModalPhotos.value = photosMap[type] || []
+  showGalleryModal.value    = true
+}
+function closeGalleryModal() {
+  showGalleryModal.value = false
 }
 </script>
 
