@@ -309,10 +309,10 @@ const screenTypes = [
 
 /* ───────────────────────────── Галерея ───────────────────────────── */
 const galleryItems = [
-  { src: '/exampleled/GCP.png', alt: 'Экран в ТЦ' },
-  { src: '/exampleled/smarteco.png', alt: 'Уличный экран SmartEco' },
-  { src: '/exampleled/ledbig.png', alt: 'Большой экран SmartMedia' },
-  { src: '/exampleled/tair.png', alt: 'Экраны в комплексе Таир' }
+  { src: '/exampleled/GCP.jpg', alt: 'Экран в ТЦ' },
+  { src: '/exampleled/smarteco.jpg', alt: 'Уличный экран SmartEco' },
+  { src: '/exampleled/ledbig.jpg', alt: 'Большой экран SmartMedia' },
+  { src: '/exampleled/tair.jpg', alt: 'Экраны в комплексе Таир' }
 ]
 
 /* ──────────────────────── Почему это работает ─────────────────────── */
