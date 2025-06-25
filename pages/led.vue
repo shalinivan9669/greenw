@@ -317,7 +317,7 @@ import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import FaqLed from '@/components/FaqLed.vue'
 import OrderModal from '@/components/OrderModal.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 /* ───────────────────────────── Типы экранов ───────────────────────────── */
 const screenTypes = [
@@ -413,6 +413,17 @@ const whenUsefulList = [
   { icon: '📈', title: 'Сайт без заявок', text: 'Прямой call-to-action на экране направит аудиторию сразу в WhatsApp или Instagram.' },
   { icon: '💡', title: 'Альтернатива билбордам', text: 'LED-реклама ярче, динамичнее и при этом дешевле классической наружки.' }
 ]
+
+// Прогрузка всех картинок модалки в кэш
+onMounted(() => {
+  Object.values(photosMap)
+    .flat()
+    .forEach(src => {
+      const img = new Image()
+      img.src = src
+    })
+})
+
 
 // состояния модалок
 const showOrderModal    = ref(false)
