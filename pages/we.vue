@@ -160,7 +160,7 @@
 
        <div class="lg:col-span-6 flex justify-center">
         <img
-          src="/assets/svg/howled.svg"
+          src="/assets/svg/howled.webp"
           alt="Как у нас появились экраны"
           class="w-full h-auto rounded-3xl shadow-lg"
         />
