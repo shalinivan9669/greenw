@@ -36,8 +36,8 @@ import OrderModal from '@/components/OrderModal.vue' // Предполагает
 // Импорт изображений (если они хранятся в assets)
 import image1 from '@/assets/1b.webp'
 import image2 from '@/assets/2b.webp'
-import image3 from '@/assets/33b.png'
-import image4  from '@/assets/4b.png'
+import image3 from '@/assets/33b.webp'
+import image4  from '@/assets/4b.webp'
 
 // Данные блоков
 const blocks = ref([
