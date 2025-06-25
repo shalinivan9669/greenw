@@ -288,9 +288,11 @@
     <!-- Модалка галереи -->
     <div
       v-if="showGalleryModal"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4
+            overflow-auto"  
     >
-      <div class="bg-white rounded-lg overflow-hidden max-w-4xl w-full">
+      <div  class="bg-white rounded-lg overflow-hidden max-w-4xl w-full
+              max-h-[90vh]">
         <div class="flex justify-end p-2">
           <button
             @click="closeGalleryModal"
