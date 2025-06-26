@@ -153,12 +153,26 @@
             </svg>
           </div>
         </div>
-        <button
-          class="mt-4 w-full bg-custom-green text-white py-3 rounded-lg hover:bg-green-600 transition duration-300"
-          @click="$emit('open-modal', block)"
-        >
-          Подробнее
-        </button>
+       <!-- две кнопки по 50% -->
+        <div class="mt-4 flex space-x-2">
+          <!-- Подробнее -->
+          <button
+            class="w-1/2 bg-custom-green text-white py-3 rounded-lg hover:bg-green-600 transition duration-300"
+            @click="$emit('open-modal', block)"
+          >
+            Подробнее
+          </button>
+
+          <!-- Скачать адрес -->
+          <!-- href можно сделать динамическим: block.addressUrl -->
+          <a
+            :href="block.addressUrl || `/addresses/${block.id}-address.pdf`"
+            download
+            class="w-1/2 bg-white border-2 border-custom-green text-custom-green py-3 rounded-lg text-center hover:bg-custom-green hover:text-white transition duration-300"
+          >
+            Скачать адрес
+          </a>
+        </div>
       </div>
     </div>
   </template>

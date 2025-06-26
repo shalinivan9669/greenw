@@ -38,7 +38,7 @@
       <!-- Логотип -->
       <div class="flex items-center justify-center md:justify-end space-x-2">
         
-        <span class="ml-3 text-lg font-bold text-custom-green text-center md:text-left">Рекламное агентство <br/> <span class=" text-5xl">GreenW</span></span>
+        <span class="ml-3 text-lg font-bold text-custom-green text-center md:text-left">Рекламное агентство <br/> <span class=" text-4xl">GreenW.KZ</span></span>
       </div>
 
       <!-- Колонка с реквизитами -->

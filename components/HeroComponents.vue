@@ -8,7 +8,7 @@
           Эффективная реклама в лифтах Караганды от GREENW
         </h1>
         <p class="text-gray-700 mt-4 text-lg">
-          Разместите свою рекламу в 415 лифтах жилых домов и привлеките новых клиентов уже сегодня!
+          Разместите свою рекламу в 450 лифтах жилых домов и привлеките новых клиентов уже сегодня!
         </p>
 
         <!-- Кнопки -->
@@ -16,7 +16,7 @@
           <button @click="openOrderModal" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Заказать рекламу
           </button>
-          <a href="https://www.tiktok.com/@greenw.kz" target="_blank" rel="noopener" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <a href="https://www.instagram.com/greenw.kz" target="_blank" rel="noopener" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Смотреть видео
           </a>
         </div>
@@ -66,10 +66,10 @@ const block = {
 
 // Статистика
 const stats = ref([
-  { label: 'лифтов', value: 415  },
-  { label: 'жилых домов', value: 155  },
-  { label: 'ежедневный охват аудитории', value: 43700 },
-  { label: 'ежемесячный охват аудитории', value: 1311000 },
+  { label: 'лифтов', value: 450  },
+  { label: 'жилых домов', value: 175   },
+  { label: 'ежедневный охват аудитории', value: 45000 },
+  { label: 'ежемесячный охват аудитории', value: 1350000 },
 ]);
 
 // Форматирование статистики (анимация чисел)

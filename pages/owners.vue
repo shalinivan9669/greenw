@@ -25,20 +25,20 @@ useHead({
   {
   hid: 'description',
   name: 'description',
-  content: 'Реклама Караганда от рекламного агентства «GreenW». Выгодное сотрудничество для собственников лифтов в Караганде: размещайте рекламу в лифтах и получайте дополнительный доход. Узнайте больше о преимуществах!',
+  content: 'Реклама Караганда от рекламного агентства «GreenW.KZ». Выгодное сотрудничество для собственников лифтов в Караганде: размещайте рекламу в лифтах и получайте дополнительный доход. Узнайте больше о преимуществах!',
 },
 
     {
       hid: 'keywords',
       name: 'keywords',
       content:
-        'Реклама Караганда, Реклама Караганды, реклама в лифтах Караганды, собственники лифтов Караганда, рекламное агентство Караганда, размещение рекламы, рекламные услуги Караганда, GreenW',
+        'Реклама Караганда, Реклама Караганды, реклама в лифтах Караганды, собственники лифтов Караганда, рекламное агентство Караганда, размещение рекламы, рекламные услуги Караганда, GreenW.KZ',
     },
     // Open Graph мета-теги
     {
       hid: 'og:title',
       property: 'og:title',
-      content: 'Реклама Караганда | Выгодное сотрудничество с агентством «GreenW»',
+      content: 'Реклама Караганда | Выгодное сотрудничество с агентством «GreenW.KZ»',
     },
     {
       hid: 'og:description',
@@ -70,13 +70,13 @@ useHead({
     {
       hid: 'twitter:title',
       name: 'twitter:title',
-      content: 'Реклама Караганда | Выгодное сотрудничество с агентством «GreenW»',
+      content: 'Реклама Караганда | Выгодное сотрудничество с агентством «GreenW.KZ»',
     },
     {
       hid: 'twitter:description',
       name: 'twitter:description',
       content:
-        'Собственники лифтов в Караганде, получите дополнительный доход с рекламой в лифтах от «GreenW». Реклама Караганда – эффективное решение для вас!',
+        'Собственники лифтов в Караганде, получите дополнительный доход с рекламой в лифтах от «GreenW.KZ». Реклама Караганда – эффективное решение для вас!',
     },
     {
       hid: 'twitter:image',
@@ -113,7 +113,7 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://www.greenw.kz/owners',
+      href: 'https://www.GreenW.KZ.kz/owners',
     },
   ],
   script: [
@@ -122,9 +122,9 @@ useHead({
       children: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "AdvertisingAgency",
-        "name": "GreenW",
-        "url": "https://www.greenw.kz/owners",
-        "logo": "https://www.greenw.kz/owners/logo.png",
+        "name": "GreenW.KZ",
+        "url": "https://www.GreenW.KZ.kz/owners",
+        "logo": "https://www.GreenW.KZ.kz/owners/logo.png",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Караганда",
@@ -137,8 +137,8 @@ useHead({
           "availableLanguage": ["Russian"],
         },
         "sameAs": [
-          "https://www.instagram.com/greenw.kz/",
-          "https://www.tiktok.com/@greenw.kz",
+          "https://www.instagram.com/GreenW.KZ.kz/",
+          "https://www.tiktok.com/@GreenW.kz",
           "https://api.whatsapp.com/send/?phone=77086755846",
         ],
       }),

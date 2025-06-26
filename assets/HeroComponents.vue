@@ -4,7 +4,7 @@
    <!-- Текстовая часть -->
    <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
-          Эффективная реклама в лифтах Караганды от GREENW
+          Эффективная реклама в лифтах Караганды от GreenW.KZ
         </h1>
         <p class="text-gray-700 mt-4 text-lg">
           Разместите свою рекламу в 300 лифтах жилых домов и привлеките новых клиентов уже сегодня!
@@ -15,7 +15,7 @@
           <button @click="openOrderModal" class="bg-custom-green  text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Заказать рекламу
           </button>
-          <a href="https://www.tiktok.com/@greenw.kz" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
+          <a href="https://www.instagram.com/greenw.kz" class="bg-custom-green text-white py-3 px-6 rounded-full hover:bg-green-500 transition">
             Смотреть видео
           </a>
         </div>
