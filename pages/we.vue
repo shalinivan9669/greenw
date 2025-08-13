@@ -288,6 +288,17 @@ import PartnersMarquee from '@/components/PartnersMarquee.vue'
 import OrderModal from '@/components/OrderModal.vue'
 import logo from '@/assets/logo.svg'
 
+useSeoMeta({
+  title: 'О нас — GreenW Караганда',
+  description: 'GreenW — локальное агентство: реклама в лифтах и на LED-экранах Караганды. Примеры работ, партнёры, контакты.',
+  ogTitle: 'GreenW — о компании',
+  ogDescription: 'Локальная экспертиза и реальный охват города.',
+  twitterCard: 'summary_large_image',
+  robots: 'index,follow'
+})
+useHead({ link: [{ rel: 'canonical', href: 'https://www.greenw.kz/we' }] })
+
+
 /* ── Blob ── */
 const Blob = defineComponent({
   props: { size: { type: Number, default: 400 }, extraClass: String },

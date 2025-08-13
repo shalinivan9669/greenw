@@ -58,6 +58,47 @@ import HeroComponents from '@/components/HeroComponents.vue';
 import Info from '@/components/Info.vue';
 import Blocks from '@/components/Blocks.vue';
 import Footer from '@/components/Footer.vue';
+useSeoMeta({
+  title: 'Реклама в лифтах Караганды – охват до 48 000 в день | GreenW',
+  description: 'Размещение в 450+ лифтах Караганды. Ежедневный контакт с жильцами. От 20 000 ₸/мес. Фотоотчёт и помощь с макетом.',
+  ogTitle: 'Лифтовая реклама в Караганде',
+  ogDescription: 'Локальный охват, регулярные контакты, доступная цена.',
+  ogUrl: 'https://www.greenw.kz/lift',
+  twitterCard: 'summary_large_image',
+  robots: 'index,follow'
+})
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.greenw.kz/lift' }],
+  script: [
+    {
+      type:'application/ld+json',
+      children: JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'Service',
+        serviceType:'Реклама в лифтах',
+        areaServed:{ '@type':'City', name:'Караганда' },
+        provider:{ '@type':'Organization', name:'GreenW', url:'https://www.greenw.kz' },
+        offers:{ '@type':'Offer', priceCurrency:'KZT', price:'20000' }
+      })
+    },
+    {
+      type:'application/ld+json',
+      children: JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'FAQPage',
+        mainEntity: [
+          { '@type':'Question', name:'Сколько стоит размещение?',
+            acceptedAnswer:{ '@type':'Answer', text:'От 20 000 ₸ за подъезд в месяц. Пакеты со скидкой при больших объёмах.'}},
+          { '@type':'Question', name:'Нужно ли разрешение ОСИ?',
+            acceptedAnswer:{ '@type':'Answer', text:'Работаем по договору с ОСИ/КСК. Дополнительных разрешений жильцов обычно не требуется.'}},
+          { '@type':'Question', name:'Как оцениваем эффективность?',
+            acceptedAnswer:{ '@type':'Answer', text:'UTM-метки, промокоды, опрос «где узнали». Даём рекомендации по креативу.'}}
+        ]
+      })
+    }
+  ]
+})
+
 
 // Динамическая загрузка компонентов
 const AsyncModule = defineAsyncComponent(() => import('~/components/Module.vue'));

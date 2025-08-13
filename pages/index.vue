@@ -165,6 +165,45 @@ import PartnersMarquee from '@/components/PartnersMarquee.vue'
 import OrderModal from '@/components/OrderModal.vue'
 import { ref } from 'vue'
 
+useSeoMeta({
+  title: 'Реклама в Караганде – лифты и LED-экраны, наружная реклама агентство GreenW',
+  description: 'Привлечём клиентов в Караганде через рекламу в лифтах и на LED-экранах. Охват до 48 000 жителей ежедневно. От 20 000 ₸/мес. Наружная реклама',
+  ogTitle: 'Реклама в Караганде – лифты и LED-экраны',
+  ogDescription: 'Локальный охват: 450+ лифтов и 22 экрана по городу.',
+  ogUrl: 'https://www.greenw.kz',
+  twitterCard: 'summary_large_image',
+  robots: 'index,follow'
+})
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.greenw.kz/' }],
+  script: [{
+    type: 'application/ld+json',
+    children: JSON.stringify({
+      '@context':'https://schema.org',
+      '@type':'LocalBusiness',
+      name:'GreenW',
+      description:'Рекламное агентство в Караганде: лифты и LED-экраны',
+      url:'https://www.greenw.kz',
+      telephone:'+7 708 675 5846',
+      email:'GREENWAYKRG@gmail.com',
+      address:{
+        '@type':'PostalAddress',
+        addressLocality:'Караганда',
+        addressRegion:'Карагандинская область',
+        postalCode:'100000',
+        streetAddress:'мкр 14, д.42, кв.20'
+      },
+      areaServed:'Караганда',
+      priceRange:'₸₸',
+      sameAs:[
+        'https://instagram.com/greenw.kz', // при необходимости замени
+        'https://tiktok.com/@greenw.kz'    // при необходимости замени
+      ]
+    })
+  }]
+})
+
+
 const showOrderModal = ref(false)
 const modalBlock     = ref<{ name: string }>({ name: '' })
 

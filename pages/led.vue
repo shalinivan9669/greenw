@@ -321,6 +321,47 @@ import FaqLed from '@/components/FaqLed.vue'
 import OrderModal from '@/components/OrderModal.vue'
 import { ref, onMounted } from 'vue'
 
+useSeoMeta({
+  title: 'Реклама на LED-экранах в Караганде – 22 площадки | GreenW',
+  description: 'Видео-реклама на экранах в ТРЦ, на вокзале и улицах Караганды. До 400 показов в сутки. От 20 000 ₸/мес.',
+  ogTitle: 'LED-реклама Караганда',
+  ogDescription: 'Динамичная цифровая наружная реклама по всему городу.',
+  ogUrl: 'https://www.greenw.kz/led',
+  twitterCard: 'summary_large_image',
+  robots: 'index,follow'
+})
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.greenw.kz/led' }],
+  script: [
+    {
+      type:'application/ld+json',
+      children: JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'Service',
+        serviceType:'Реклама на LED-экранах',
+        areaServed:{ '@type':'City', name:'Караганда' },
+        provider:{ '@type':'Organization', name:'GreenW', url:'https://www.greenw.kz' }
+      })
+    },
+    {
+      type:'application/ld+json',
+      children: JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'FAQPage',
+        mainEntity: [
+          { '@type':'Question', name:'Какой формат видео нужен?',
+            acceptedAnswer:{ '@type':'Answer', text:'MP4, 1920×1080, до 15–30 c. Поможем адаптировать ролик.'}},
+          { '@type':'Question', name:'Есть ли звук?',
+            acceptedAnswer:{ '@type':'Answer', text:'Обычно без звука. Важен понятный визуальный посыл и субтитры.'}},
+          { '@type':'Question', name:'Минимальный срок?',
+            acceptedAnswer:{ '@type':'Answer', text:'Рекомендуем от 1 месяца для накопления контактов и узнаваемости.'}}
+        ]
+      })
+    }
+  ]
+})
+
+
 /* ───────────────────────────── Типы экранов ───────────────────────────── */
 const screenTypes = [
   {
