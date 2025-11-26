@@ -1,8 +1,12 @@
 <template>
   <div>
     <NavBar class="shadow-md bg-white z-10" />
-    <HeroComponents id="about" />
-     <Blocks/>
+    <section id="about">
+      <HeroComponents />
+    </section>
+    <section id="blocks">
+      <Blocks />
+    </section>
     <Suspense>
       <template #default>
         <AsyncModule /> 
@@ -11,14 +15,16 @@
         <div>Загрузка модуля...</div>
       </template>
     </Suspense>
-    <Suspense>
-      <template #default>
-        <AsyncFeedbackForm id="contact"/>
-      </template>
-      <template #fallback>
+    <section id="contact">
+      <Suspense>
+        <template #default>
+          <AsyncFeedbackForm />
+        </template>
+        <template #fallback>
         <div>Загрузка формы обратной связи...</div>
-      </template>
-    </Suspense>
+        </template>
+      </Suspense>
+    </section>
     
     <!-- Дополнительные асинхронные компоненты -->
     <!--<Suspense>
@@ -30,15 +36,11 @@
       </template>
     </Suspense>
     -->
-    <Suspense>
-      <template #default>
-        <AsyncSlider/>
-      </template>
-      <template #fallback>
-        <div>Загрузка слайдера...</div>
-      </template>
-    </Suspense>
-     <Info id="services"/>
+    
+   
+     <section id="services">
+      <Info />
+    </section>
  <Suspense>
       <template #default>
         <AsyncFaq />

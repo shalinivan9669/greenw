@@ -163,6 +163,11 @@ export default defineNuxtConfig({
     '~/plugins/observe-visibility.js' // Ваши плагины
   ],
 
+  build: {
+    transpile: ['naive-ui', 'vueuc', '@css-render/vue3-ssr'],
+  },
+
+
   // Опционально: Добавление компрессии
   serverMiddleware: [
     {

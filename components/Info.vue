@@ -2,93 +2,152 @@
   <section class="py-12 bg-[#f3f3f3]">
     <!-- Первый блок: Когда полезна реклама в лифтах? -->
     <div class="container mx-auto text-center px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-black mb-8">Когда полезна реклама в лифтах?</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="sale" loading="lazy" alt="Реклама Акции и распродажи в Караганде" class="mx-auto h-40 mb-4">
-          <p>Планируете провести акцию или распродажу</p>
-        </div>
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="staff" loading="lazy" alt="Реклама вакансий" class="mx-auto h-40 mb-4">
-          <p>Необходимо привлечь квалифицированный персонал</p>
-        </div>
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="money" loading="lazy" alt="Рекламный бюджет" class="mx-auto h-40 mb-4">
-          <p>Ограничен рекламный бюджет</p>
-        </div>
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="medal" loading="lazy" alt="Реклама лучше конкурентов" class="mx-auto h-40 mb-4">
-          <p>Хотите быть на шаг впереди конкурентов</p>
-        </div>
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="people" loading="lazy" alt="Привлечение клиентов через рекламу" class="mx-auto h-40 mb-4">
-          <p>Нужен эффективный способ привлечения новых клиентов</p>
-        </div>
-        <div class="bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="hand" loading="lazy" alt="Повышение узнаваемости Бренда" class="mx-auto h-40 mb-4">
-          <p>Вашему бренду не хватает узнаваемости</p>
-        </div>
+      <h2 class="text-3xl font-bold text-black mb-6">Когда полезна реклама в лифтах?</h2>
+      <p class="text-gray-700 max-w-2xl mx-auto mb-8">
+        Выделили ключевые случаи, когда размещение в лифтах даёт максимум эффекта. Небольшие карточки сделали заметнее.
+      </p>
+      <div class="flex justify-center items-center gap-6">
+        <Carousel
+          :items="whenUsefulChunks[0]"
+          :base-width="360"
+          :autoplay="true"
+          :autoplay-delay="3200"
+          :pause-on-hover="true"
+          :loop="true"
+          :round="false"
+        />
+        <Carousel
+          :items="whenUsefulChunks[1]"
+          :base-width="360"
+          :autoplay="true"
+          :autoplay-delay="3200"
+          :pause-on-hover="true"
+          :loop="true"
+          :round="false"
+        />
       </div>
     </div>
 
     <!-- Второй блок: Почему реклама в лифтах? -->
     <div class="container mx-auto text-center mt-16 px-6 lg:px-8">
-      <h2 class="text-3xl font-bold text-black mb-8">Почему реклама в лифтах?</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 lg:grid-cols-3 lg:gap-16 text-left">
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="button" loading="lazy" alt="Button" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Удобный формат</h3>
-            <p>Реклама на уровне глаз, легко доступна и хорошо видна.</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="money" loading="lazy" alt="Выгодная цена рекламы" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Выгодные цены</h3>
-            <p>Реклама в лифтах дешевле других видов рекламы.</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="people" loading="lazy" alt="Новые площадки под рекламу" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Развитие города</h3>
-            <p>Интенсивное строительство новых жилых домов с лифтами.</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="hand" loading="lazy" alt="Реклама охватывающая людей в домах" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Широкий охват</h3>
-            <p>Можно охватить широкую аудиторию, не использующую другие медиа.</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="button" loading="lazy" alt="Частый контакт с рекламой" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Частота контакта</h3>
-            <p>80% жителей домов ежедневно пользуются лифтами минимум два раза в день.</p>
-          </div>
-        </div>
-        <div class="flex items-start space-x-4 bg-[#efefef] rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-          <img :src="hand" loading="lazy" alt="Быстрый эффект от рекламы" class="h-12">
-          <div>
-            <h3 class="text-xl font-bold">Быстрый эффект</h3>
-            <p>Реклама сразу привлекает внимание, особенно востребованные услуги.</p>
-          </div>
-        </div>
+      <h2 class="text-3xl font-bold text-black mb-6">Почему реклама в лифтах?</h2>
+      <p class="text-gray-700 max-w-2xl mx-auto mb-8">
+        Причины, почему лифтовая реклама работает лучше среднего: сделали карточки крупнее для акцента на преимуществах.
+      </p>
+      <div class="flex justify-center items-center gap-6">
+        <Carousel
+          :items="whyLiftChunks[0]"
+          :base-width="520"
+          :autoplay="true"
+          :autoplay-delay="3600"
+          :pause-on-hover="true"
+          :loop="true"
+          :round="false"
+        />
+        <Carousel
+          :items="whyLiftChunks[1]"
+          :base-width="520"
+          :autoplay="true"
+          :autoplay-delay="3600"
+          :pause-on-hover="true"
+          :loop="true"
+          :round="false"
+        />
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-// Импортируем изображения
-import button from '@/assets/button.png'
-import hand from '@/assets/hand.png'
-import medal from '@/assets/medal.png'
-import money from '@/assets/money.png'
-import people from '@/assets/people.png'
-import sale from '@/assets/sale.png'
-import staff from '@/assets/staff.png'
+<script setup lang="ts">
+import Carousel, { type CarouselItem } from '@/components/ui/CarouselBits.vue'
+import { computed } from 'vue'
+
+const whenUsefulCarousel: CarouselItem[] = [
+  {
+    id: 1,
+    title: 'Акции и распродажи',
+    description: 'Быстро донесите спецпредложение до соседних домов и получите всплеск обращений.',
+    iconText: '⚡'
+  },
+  {
+    id: 2,
+    title: 'Найм персонала рядом',
+    description: 'Ищете сотрудников около точки продаж — жители подъезда увидят объявление дважды в день.',
+    iconText: '🧑‍🍳'
+  },
+  {
+    id: 3,
+    title: 'Ограниченный бюджет',
+    description: 'Лифты дают плотный контакт с аудиторией без больших вложений в медиа.',
+    iconText: '💸'
+  },
+  {
+    id: 4,
+    title: 'Отстройка от конкурентов',
+    description: 'Регулярные показы в лифте закрепляют бренд в памяти жильцов.',
+    iconText: '🏅'
+  },
+  {
+    id: 5,
+    title: 'Нужны новые клиенты',
+    description: 'Каждый подъём и спуск — напоминание обратиться именно к вам.',
+    iconText: '🤝'
+  },
+  {
+    id: 6,
+    title: 'Растить узнаваемость',
+    description: 'Постоянное присутствие в лифте делает бренд «своим» для дома.',
+    iconText: '📌'
+  }
+]
+
+const whyLiftCarousel: CarouselItem[] = [
+  {
+    id: 1,
+    title: 'Формат на уровне глаз',
+    description: 'Плакат невозможно пролистать или закрыть — внимание удерживается естественно.',
+    iconText: '👀'
+  },
+  {
+    id: 2,
+    title: 'Выгодная цена',
+    description: 'Дешевле наружки и онлайн при сопоставимом охвате жителей дома.',
+    iconText: '💚'
+  },
+  {
+    id: 3,
+    title: 'Растущий охват',
+    description: 'Новые ЖК и лифты появляются каждый месяц — аудитория расширяется.',
+    iconText: '🏗️'
+  },
+  {
+    id: 4,
+    title: 'Частота контактов',
+    description: 'Жильцы ездят 2+ раза в день, реклама перед глазами постоянно.',
+    iconText: '🔁'
+  },
+  {
+    id: 5,
+    title: 'Доверие и статус',
+    description: 'Размещение воспринимается как часть дома — это повышает доверие.',
+    iconText: '🛗'
+  },
+  {
+    id: 6,
+    title: 'Быстрый запуск',
+    description: 'Можно выйти в показы за пару дней и получить фотоотчёт по каждому адресу.',
+    iconText: '⏱️'
+  }
+]
+
+const chunkCarousel = (items: CarouselItem[], size: number) => {
+  const chunks: CarouselItem[][] = []
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size))
+  }
+  return chunks
+}
+
+const whenUsefulChunks = computed(() => chunkCarousel(whenUsefulCarousel, 3))
+const whyLiftChunks = computed(() => chunkCarousel(whyLiftCarousel, 3))
 </script>

@@ -7,6 +7,7 @@
     <main class="flex-grow">
       <!-- ░░░ Hero ░░░ -->
       <section
+        id="led-hero"
         class="relative overflow-hidden bg-gradient-to-b from-[#4caf4fcc] to-[#a8cc55]"
       >
         <div
@@ -30,7 +31,7 @@
           <ul
             class="text-lg md:text-xl mb-10 space-y-3 max-w-3xl mx-auto text-left list-inside list-disc text-white/90"
           >
-            <li>22 экрана по всему городу — ТЦ, улицы, вокзалы</li>
+            <li>28 экрана по всему городу — ТЦ, улицы, вокзалы</li>
             <li>200–400 показов в день</li>
             <li>Хронометраж до 30 секунд</li>
             <li>Узнаваемость </li>
@@ -64,7 +65,7 @@
       </section>
 
       <!-- ░░░ Типы экранов ░░░ -->
-      <section class="py-24 bg-white">
+      <section id="led-screens" class="py-24 bg-white">
         <div class="container mx-auto px-6">
           <h2
             class="text-4xl md:text-5xl font-extrabold text-center mb-20 text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] via-[#8ecb48] to-[#a8cc55]"
@@ -72,99 +73,108 @@
             Типы экранов
           </h2>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div
-              v-for="(card, idx) in screenTypes"
-              :key="idx"
-              class="relative p-12 bg-gradient-to-br from-[#f0fbe6] via-[#e6f8d4]/60 to-[#f0fbe6] rounded-3xl shadow-xl ring-1 ring-[#a8cc55]/20 hover:ring-[#a8cc55]/40 transform transition-all duration-300 hover:scale-[1.04] flex flex-col animate-fade-up"
-              :style="{ '--i': idx }"
+          <BentoGrid class="w-full max-w-6xl mx-auto auto-rows-[18rem] lg:auto-rows-[22rem] gap-8 md:grid-cols-1">
+            <BentoGridCard
+              v-for="(card, idx) in screenTypeCards"
+              :key="card.title"
+              :name="card.title"
+              :description="card.line2 || card.line1"
+              cta="Р—Р°РїСЂРѕСЃРёС‚СЊ СЂР°Р·РјРµС‰РµРЅРёРµ"
+              :class="card.layout"
             >
-              <!-- Бейдж -->
-              <div class="absolute -top-10 left-1/2 -translate-x-1/2">
+              <template #background>
                 <div
-                  class="w-20 h-20 bg-[#4caf4f] text-white rounded-full flex items-center justify-center text-3xl font-extrabold shadow-lg"
-                >
-                  {{ idx + 1 }}
+                  class="absolute inset-0 opacity-80 transition duration-500 group-hover:opacity-100 group-hover:scale-[1.02]"
+                  :style="card.backgroundStyle"
+                ></div>
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.55),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.45),transparent_40%)] opacity-80 mix-blend-screen"></div>
+                <div class="absolute inset-0 border border-white/50 rounded-2xl shadow-[0_20px_50px_-24px_rgba(34,124,45,0.45)]"></div>
+              </template>
+
+              <template #title>
+                <div class="flex items-center justify-between gap-3">
+                  <span
+                    class="rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[#2e7d32] shadow-sm"
+                  >
+                    {{ card.line1 }}
+                  </span>
+                  <span class="text-sm font-semibold text-[#2e7d32]">
+                    {{ idx + 1 }} / {{ screenTypeCards.length }}
+                  </span>
                 </div>
-              </div>
+                <div class="mt-4 text-2xl font-extrabold leading-tight text-neutral-900 drop-shadow-sm">
+                  {{ card.title }}
+                </div>
+              </template>
 
-              <h3
-                class="mt-14 text-3xl font-extrabold text-[#2e7d32] mb-6 text-center uppercase leading-snug tracking-tight"
-              >
-                {{ card.title }}
-              </h3>
+              <template #description>
+                <p class="text-sm leading-relaxed text-neutral-700">
+                  {{ card.line2 || card.line3 }}
+                </p>
+              </template>
 
-              <ul class="flex-1 text-lg leading-relaxed space-y-4 text-gray-700 mb-8">
-                <li class="font-semibold text-center">{{ card.line1 }}</li>
-                <li>{{ card.line2 }}</li>
-                <li>{{ card.line3 }}</li>
-                <li>{{ card.line4 }}</li>
-                <li v-if="card.line5" class="font-extrabold text-xl text-[#225c24]">
-                  {{ card.line5 }}
-                </li>
-                <li v-if="card.line6">{{ card.line6 }}</li>
-              </ul>
+              <template #details>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed text-neutral-800">
+                  <li v-if="card.line3">{{ card.line3 }}</li>
+                  <li v-if="card.line4">{{ card.line4 }}</li>
+                  <li v-if="card.line5" class="text-base font-bold text-[#225c24]">
+                    {{ card.line5 }}
+                  </li>
+                  <li v-if="card.line6" class="font-semibold text-[#2e7d32]">
+                    {{ card.line6 }}
+                  </li>
+                </ul>
+              </template>
 
-              <NuxtLink
-                to=""
-                @click.prevent="openOrderModal(card.title)"
-                class="cursor-pointer mt-auto block text-center px-6 py-4 bg-[#4caf4f] text-white font-semibold rounded-xl shadow hover:bg-[#3c8e3f] transition-colors"
-              >
-                Заказать
-              </NuxtLink>
-            </div>
-          </div>
+              <template #actions>
+                <button
+                  class="mt-4 inline-flex w-max items-center gap-2 rounded-full bg-[#4caf4f] px-5 py-2 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#3c8e3f]"
+                  @click.prevent="openOrderModal(card.title)"
+                >
+                  Р—Р°РєР°Р·Р°С‚СЊ
+                  <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0-5-5m5 5-5 5" />
+                  </svg>
+                </button>
+              </template>
+            </BentoGridCard>
+          </BentoGrid>
         </div>
       </section>
 
       <!-- ░░░ Галерея экранов ░░░ -->
-      <section class="py-20 bg-gray-50">
-    <div class="container mx-auto px-6">
-      <h2
-        class="text-3xl md:text-4xl font-extrabold text-center mb-12
-               text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] to-[#a8cc55]"
-      >
-        Галерея экранов
-      </h2>
-
-      <div
-        class="flex space-x-6 overflow-x-auto snap-x snap-mandatory pb-4
-               lg:grid lg:grid-cols-4 lg:gap-6 lg:space-x-0"
-      >
-        <div
-         v-for="(img, idx) in galleryItems"
-        :key="idx"
-        class="snap-center flex-shrink-0 w-80 lg:w-full flex flex-col items-center cursor-pointer"
-       >
-          <!-- 1) подпись -->
-          <p
-            @click="openGalleryModal(img.type)"
-            class="cursor-pointer text-center text-2xl font-semibold text-gray-800 mb-2"
+      <section id="led-gallery" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] to-[#a8cc55]"
           >
-            {{ img.caption }}
-          </p>
+            Галерея экранов
+          </h2>
 
-          <!-- 2) собственно картинка -->
-           <div
-          @click="openGalleryModal(img.type)"
-          class="bg-gray-200 rounded-xl overflow-hidden
-                 shadow-lg hover:shadow-2xl transition-shadow duration-300
-                 w-full h-[28rem] "
-        >
-          <img
-            :src="img.src"
-            :alt="img.alt"
-            class="object-cover w-full h-full"
-            loading="lazy"
-          />
+          <div class="bg-white rounded-3xl shadow-xl p-4 md:p-6">
+            <Masonry
+              class="w-full"
+              :items="masonryItems"
+              :duration="0.6"
+              :stagger="0.05"
+              animate-from="bottom"
+              :scale-on-hover="true"
+              :hover-scale="0.95"
+              :blur-to-focus="true"
+              :color-shift-on-hover="false"
+            />
+          </div>
         </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
       <!-- ░░░ Почему это работает ░░░ -->
-      <section class="py-24 bg-white">
+      <section id="led-benefits" class="py-24 bg-white">
         <div class="container mx-auto px-6">
           <h2
             class="text-4xl md:text-5xl font-extrabold text-center mb-20 text-transparent bg-clip-text bg-gradient-to-r from-[#4caf4f] via-[#8ecb48] to-[#a8cc55]"
@@ -247,7 +257,7 @@
       </section>
 
       <!-- ░░░ Финальный CTA ░░░ -->
-      <section class="py-24 bg-gradient-to-r from-[#4caf4f] to-[#8ecb48]">
+      <section id="led-cta" class="py-24 bg-gradient-to-r from-[#4caf4f] to-[#8ecb48]">
         <div class="container mx-auto px-6 text-center text-white">
           <p class="text-3xl md:text-4xl font-extrabold mb-8">
             Рассчитать стоимость под ваш бизнес
@@ -285,32 +295,6 @@
       @close-order-modal="closeOrderModal"
     />
 
-    <!-- Модалка галереи -->
-    <div
-      v-if="showGalleryModal"
-     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 p-4
-            overflow-auto"  
-    >
-      <div  class="bg-white rounded-lg overflow-hidden max-w-4xl w-full
-              max-h-[90vh]">
-        <div class="flex justify-end p-2">
-          <button
-            @click="closeGalleryModal"
-            class="text-gray-600 hover:text-gray-900 text-2xl leading-none"
-          >&times;</button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 p-4">
-          <img
-            v-for="(src, i) in galleryModalPhotos"
-            :key="i"
-            :src="src"
-            class="object-cover w-full rounded-md"
-            style="aspect-ratio:3/4;"
-            alt="Gallery photo"
-          />
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -319,7 +303,10 @@ import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import FaqLed from '@/components/FaqLed.vue'
 import OrderModal from '@/components/OrderModal.vue'
-import { ref, onMounted } from 'vue'
+import BentoGrid from '@/components/ui/bento-grid/BentoGrid.vue'
+import BentoGridCard from '@/components/ui/bento-grid/BentoGridCard.vue'
+import Masonry from '@/components/Masonry.vue'
+import { ref } from 'vue'
 
 useSeoMeta({
   title: 'Реклама на LED-экранах в Караганде – 22 площадки | GreenW',
@@ -400,43 +387,54 @@ const screenTypes = [
   }
 ]
 
-/* ───────────────────────────── Галерея ───────────────────────────── */
-const galleryItems =[
-  { type: 'GCP',      src: '/exampleled/GCP.jpg',      alt: 'Экран в ТЦ',      caption: 'Внутренние экраны' },
-  { type: 'smarteco', src: '/exampleled/smarteco.jpg', alt: 'Уличный экран SmartEco', caption: 'Уличные Smart Eco' },
-  { type: 'ledbig',   src: '/exampleled/ledbig.jpg',   alt: 'Большой экран SmartMedia', caption: 'Большие уличные' },
-  { type: 'tair',     src: '/exampleled/tair.jpg',     alt: 'Экраны в комплексе Таир', caption: 'Комплекс Таир' },
+const screenTypePalettes = [
+  { from: '#f4fbf0', to: '#e6f7d9', glow: 'rgba(76, 175, 79, 0.25)', glowSoft: 'rgba(168, 204, 85, 0.25)' },
+  { from: '#e8f4ff', to: '#dff5f1', glow: 'rgba(76, 175, 79, 0.2)', glowSoft: 'rgba(0, 136, 204, 0.18)' },
+  { from: '#fef7e5', to: '#e8f3ff', glow: 'rgba(76, 175, 79, 0.18)', glowSoft: 'rgba(255, 193, 7, 0.18)' },
+  { from: '#eef9f1', to: '#f7fdf6', glow: 'rgba(56, 142, 60, 0.22)', glowSoft: 'rgba(168, 204, 85, 0.22)' }
 ]
 
-/* Заглушки: по 5 изображений, кроме smarteco – там 3 */
-const photosMap: Record<string, string[]> = {
-  GCP: [
-    '/exampleled/GCP1.png',
-    '/exampleled/GCP2.png',
-    '/exampleled/GCP3.jpg',
-    '/exampleled/GCP4.jpg',
-    '/exampleled/GCP5.png',
-  ],
-  smarteco: [
-    '/exampleled/smarteco1.png',
-    '/exampleled/smarteco2.png',
-    '/exampleled/smarteco3.png',
-  ],
-  ledbig: [
-    '/exampleled/ledbig1.png',
-    '/exampleled/ledbig2.png',
-    '/exampleled/ledbig3.png',
-    '/exampleled/ledbig4.png',
-    '/exampleled/ledbig5.png',
-  ],
-  tair: [
-    '/exampleled/tair1.png',
-    '/exampleled/tair2.png',
-    '/exampleled/tair3.png',
-    '/exampleled/tair4.png',
-    '/exampleled/tair5.png',
-  ],
-}
+const screenTypeLayouts = [
+  'md:col-span-2 md:row-span-2 md:col-start-1 md:row-start-1',
+  'md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-1',
+  'md:col-span-1 md:row-span-1 md:col-start-3 md:row-start-2',
+  'md:col-span-3 md:row-span-1'
+]
+
+const screenTypeCards = screenTypes.map((card, idx) => {
+  const palette = screenTypePalettes[idx % screenTypePalettes.length]
+  return {
+    ...card,
+    layout: screenTypeLayouts[idx] || '',
+    backgroundStyle: {
+      backgroundImage: `radial-gradient(circle at 20% 20%, ${palette.glow}, transparent 45%), radial-gradient(circle at 80% 0%, ${palette.glowSoft}, transparent 42%), linear-gradient(135deg, ${palette.from}, ${palette.to})`
+    }
+  }
+})
+const masonryItems = ref([
+  { id: 'gcp-main', img: '/exampleled/GCP.jpg', url: '/exampleled/GCP.jpg', height: 620 },
+  { id: 'gcp-1', img: '/exampleled/GCP1.png', url: '/exampleled/GCP1.png', height: 540 },
+  { id: 'gcp-2', img: '/exampleled/GCP2.png', url: '/exampleled/GCP2.png', height: 480 },
+  { id: 'gcp-3', img: '/exampleled/GCP3.jpg', url: '/exampleled/GCP3.jpg', height: 560 },
+  { id: 'gcp-4', img: '/exampleled/GCP4.jpg', url: '/exampleled/GCP4.jpg', height: 420 },
+  { id: 'gcp-5', img: '/exampleled/GCP5.png', url: '/exampleled/GCP5.png', height: 520 },
+  { id: 'smarteco-main', img: '/exampleled/smarteco.jpg', url: '/exampleled/smarteco.jpg', height: 620 },
+  { id: 'smarteco-1', img: '/exampleled/smarteco1.png', url: '/exampleled/smarteco1.png', height: 520 },
+  { id: 'smarteco-2', img: '/exampleled/smarteco2.png', url: '/exampleled/smarteco2.png', height: 460 },
+  { id: 'smarteco-3', img: '/exampleled/smarteco3.png', url: '/exampleled/smarteco3.png', height: 500 },
+  { id: 'ledbig-main', img: '/exampleled/ledbig.jpg', url: '/exampleled/ledbig.jpg', height: 700 },
+  { id: 'ledbig-1', img: '/exampleled/ledbig1.png', url: '/exampleled/ledbig1.png', height: 540 },
+  { id: 'ledbig-2', img: '/exampleled/ledbig2.png', url: '/exampleled/ledbig2.png', height: 520 },
+  { id: 'ledbig-3', img: '/exampleled/ledbig3.png', url: '/exampleled/ledbig3.png', height: 480 },
+  { id: 'ledbig-4', img: '/exampleled/ledbig4.png', url: '/exampleled/ledbig4.png', height: 580 },
+  { id: 'ledbig-5', img: '/exampleled/ledbig5.png', url: '/exampleled/ledbig5.png', height: 500 },
+  { id: 'tair-main', img: '/exampleled/tair.jpg', url: '/exampleled/tair.jpg', height: 660 },
+  { id: 'tair-1', img: '/exampleled/tair1.png', url: '/exampleled/tair1.png', height: 540 },
+  { id: 'tair-2', img: '/exampleled/tair2.png', url: '/exampleled/tair2.png', height: 500 },
+  { id: 'tair-3', img: '/exampleled/tair3.png', url: '/exampleled/tair3.png', height: 460 },
+  { id: 'tair-4', img: '/exampleled/tair4.png', url: '/exampleled/tair4.png', height: 560 },
+  { id: 'tair-5', img: '/exampleled/tair5.png', url: '/exampleled/tair5.png', height: 500 }
+])
 
 /* ──────────────────────── Почему это работает ─────────────────────── */
 const whyPoints = [
@@ -457,23 +455,9 @@ const whenUsefulList = [
   { icon: '💡', title: 'Альтернатива билбордам', text: 'LED-реклама ярче, динамичнее и при этом дешевле классической наружки.' }
 ]
 
-// Прогрузка всех картинок модалки в кэш
-onMounted(() => {
-  Object.values(photosMap)
-    .flat()
-    .forEach(src => {
-      const img = new Image()
-      img.src = src
-    })
-})
-
-
-// состояния модалок
+// состояния модалки заказа
 const showOrderModal    = ref(false)
 const modalBlock        = ref<{ name: string }>({ name: '' })
-
-const showGalleryModal  = ref(false)
-const galleryModalPhotos= ref<string[]>([])
 
 // Заказ звонка
 function openOrderModal(name: string) {
@@ -482,15 +466,6 @@ function openOrderModal(name: string) {
 }
 function closeOrderModal() {
   showOrderModal.value = false
-}
-
-// Галерея
-function openGalleryModal(type: string) {
-  galleryModalPhotos.value = photosMap[type] || []
-  showGalleryModal.value    = true
-}
-function closeGalleryModal() {
-  showGalleryModal.value = false
 }
 </script>
 

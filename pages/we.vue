@@ -18,8 +18,28 @@
       </div>
 
       <!-- декоративные «капли» -->
-      <Blob :size="540" extra-class="-top-56 -left-28 opacity-[0.10] blur-sm" />
-      <Blob :size="420" extra-class="-bottom-44 -right-24 opacity-[0.14] blur-sm" />
+      <div class="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+        <div
+          class="absolute -left-20 -top-32 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 opacity-80"
+        >
+          <Orb
+            :hue="120"
+            :hoverIntensity="0.35"
+            :rotateOnHover="false"
+            :forceHoverState="true"
+          />
+        </div>
+        <div
+          class="absolute right-0 -bottom-24 w-72 h-72 md:w-96 md:h-96 lg:w-[460px] lg:h-[460px] opacity-80"
+        >
+          <Orb
+            :hue="120"
+            :hoverIntensity="0.28"
+            :rotateOnHover="false"
+            :forceHoverState="true"
+          />
+        </div>
+      </div>
 
       <!-- контент -->
       <div
@@ -196,15 +216,15 @@
           class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto"
         >
           <StatCard
-            value="450+"
+            value="605+"
             label="лифтов с&nbsp;размещённой&nbsp;рекламой"
           />
-          <StatCard value="22" label="экрана по&nbsp;всей&nbsp;Караганде" />
+          <StatCard value="28" label="экрана по&nbsp;всей&nbsp;Караганде" />
           <StatCard
-            value="50&nbsp;000+"
+            value="55&nbsp;200+"
             label="человек видят рекламу&nbsp;каждый&nbsp;день"
           />
-          <StatCard value="100+" label="довольных&nbsp;клиентов" />
+          <StatCard value="150+" label="довольных&nbsp;клиентов" />
         </div>
       </div>
     </section>
@@ -282,6 +302,7 @@
 
 <script setup lang="ts">
 import { defineComponent, h, ref, nextTick, onMounted } from 'vue'
+import Orb from '@/components/Orb.vue'
 import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import PartnersMarquee from '@/components/PartnersMarquee.vue'

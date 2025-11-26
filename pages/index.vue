@@ -20,7 +20,7 @@
           </h1>
 
           <p class="text-lg md:text-5xl mb-12 max-w-2xl mx-auto leading-relaxed   ">
-            Более 450 лифтов и 22 экрана <br />по всему городу.
+            Более 600 лифтов и 28 экрана <br />по всему городу.
           </p>
           <p class="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed ">
             От 20 000 ₸ в месяц. Без шума. <br />С максимальным вниманием.
@@ -47,49 +47,81 @@
             </a>
           </div>
 
-          <h2 class="text-2xl md:text-5xl font-semibold mb-20">
-            Какая реклама подойдёт именно вам?
+          <h2
+            class="text-2xl md:text-5xl font-semibold mb-20 flex flex-wrap items-center justify-center gap-3 md:gap-4"
+          >
+             Какая реклама подойдёт  <RotatingText
+              :texts="['Именно вам?','В лифтах?', 'На LED-экранах?', 'На больших LED-экранах?', 'Дающая звонки?']"
+              mainClassName="px-3 md:px-4 bg-white text-emerald-700 rounded-lg shadow-md text-xl md:text-4xl font-bold items-center"
+              :staggerFrom="'last'"
+              :initial="{ y: '100%' }"
+              :animate="{ y: 0 }"
+              :exit="{ y: '-120%' }"
+              :staggerDuration="0.03"
+              splitLevelClassName="overflow-hidden pb-1"
+              :transition="{ type: 'spring', damping: 30, stiffness: 400 }"
+              :rotationInterval="2000"
+            /> 
+           
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl mx-auto">
             <!-- Лифты -->
-            <NuxtLink
-              to="/lift"
-              class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/50 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
-            >
-              <div class="mb-6 w-full text-center">
-                <img src="/assets/svg/lift.svg" alt="Реклама Караганда" class="w-20 h-20 mx-auto" />
-              </div>
-              <h3 class="text-2xl font-semibold text-white mb-3">
-                Реклама в лифтах
-              </h3>
-              <ul class="mt-4 space-y-2 text-white text-left">
-                <li><span class="font-semibold">Формат:</span> бумажный модуль внутри лифта</li>
-                <li><span class="font-semibold">450+ лифтов</span> по всему городу</li>
-                <li><span class="font-semibold">Ежедневный охват:</span> до 48 000 человек</li>
-                <li><span class="font-semibold">От 20 000 ₸</span> / месяц</li>
-                <li>Работает на доверие, локальность и регулярный контакт</li>
-              </ul>
-            </NuxtLink>
+            <ElectricBorder
+              :color="'#c0fb57'"
+              :speed="0.4"
+              :chaos="0.75"
+              :thickness="9"
+              :style="{ borderRadius: '22px' }"
+              class-name="w-full h-full"
+            > 
+              <NuxtLink
+                to="/lift"
+                class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/50 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition h-full"
+              >
+                <div class="mb-6 w-full text-center">
+                  <img src="/assets/svg/lift.svg" alt="Реклама Караганда" class="w-20 h-20 mx-auto" />
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-3">
+                  Реклама в лифтах
+                </h3>
+                <ul class="mt-4 space-y-2 text-white text-left">
+                  <li><span class="font-semibold">Формат:</span> бумажный модуль внутри лифта</li>
+                  <li><span class="font-semibold">600+ лифтов</span> по всему городу</li>
+                  <li><span class="font-semibold">Ежедневный охват:</span> до 55 000 человек</li>
+                  <li><span class="font-semibold">От 20 000 ₸</span> / месяц</li>
+                  <li>Работает на доверие, локальность и регулярный контакт</li>
+                </ul>
+              </NuxtLink>
+           </ElectricBorder>
 
             <!-- Экраны и LED-стенды -->
-            <NuxtLink
-              to="/led"
-              class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/40 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition"
+           <ElectricBorder
+              :color="'#f5a720'"
+            :speed="0.4"
+              :chaos="0.75"
+              :thickness="9"
+              :style="{ borderRadius: '22px' }"
+              class-name="w-full h-full"
             >
-              <div class="mb-6 w-full text-center">
-                <img src="/assets/svg/led.svg" alt="Реклама Караганда лед экраны" class="w-20 h-20 mx-auto" />
-              </div>
-              <h3 class="text-2xl font-semibold text-white mb-3">
-                Реклама на экранах и LED-стендах
-              </h3>
-              <ul class="mt-4 space-y-2 text-white text-left">
-                <li><span class="font-semibold">Формат:</span> динамичный ролик на экране</li>
-                <li><span class="font-semibold">22 монитора</span> в ТД, на вокзале и улицах</li>
-                <li><span class="font-semibold">200–400 показов</span> в сутки</li>
-                <li>Идеально для акций, имиджа, узнаваемости</li>
-                <li><span class="font-semibold">От 20 000 ₸</span> / месяц</li>
-              </ul>
-            </NuxtLink>
+              <NuxtLink
+                to="/led"
+                class="group relative flex flex-col items-start p-12 bg-lime-300/40 backdrop-blur-md rounded-2xl border border-white/40 shadow-xl min-h-[450px] hover:backdrop-blur-sm hover:border-white/50 hover:shadow-2xl transition h-full"
+              >
+                <div class="mb-6 w-full text-center">
+                  <img src="/assets/svg/led.svg" alt="Реклама Караганда лед экраны" class="w-20 h-20 mx-auto" />
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-3">
+                  Реклама на экранах и LED-стендах
+                </h3>
+                <ul class="mt-4 space-y-2 text-white text-left">
+                  <li><span class="font-semibold">Формат:</span> динамичный ролик на экране</li>
+                  <li><span class="font-semibold">28 монитора</span> в ТД, на вокзале и улицах</li>
+                  <li><span class="font-semibold">200–400 показов</span> в сутки</li>
+                  <li>Идеально для акций, имиджа, узнаваемости</li>
+                  <li><span class="font-semibold">От 20 000 ₸</span> / месяц</li>
+                </ul>
+              </NuxtLink>
+        </ElectricBorder>
           </div>
         </div>
 
@@ -163,6 +195,8 @@ import NavBar from '@/components/NavBar.vue'
 import Footer from '@/components/Footer.vue'
 import PartnersMarquee from '@/components/PartnersMarquee.vue'
 import OrderModal from '@/components/OrderModal.vue'
+import ElectricBorder from '@/components/ElectricBorder.vue'
+import RotatingText from '@/components/RotatingText.vue'
 import { ref } from 'vue'
 
 useSeoMeta({

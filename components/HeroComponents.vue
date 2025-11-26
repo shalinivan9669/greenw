@@ -1,14 +1,14 @@
 <!-- components/HeroSection.vue -->
 <template>
   <section class="bg-[#efefef] py-12">
-    <div class="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
+    <div class="container mx-auto flex !h-[900px] flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-0">
       <!-- Текстовая часть -->
       <div class="text-center lg:text-left lg:w-1/2">
         <h1 class="text-2xl lg:text-4xl font-bold text-black leading-tight">
           Эффективная реклама в лифтах Караганды от GREENW
         </h1>
         <p class="text-gray-700 mt-4 text-lg">
-          Разместите свою рекламу в 450 лифтах жилых домов и привлеките новых клиентов уже сегодня!
+          Разместите свою рекламу в 600 лифтах жилых домов и привлеките новых клиентов уже сегодня!
         </p>
 
         <!-- Кнопки -->
@@ -66,10 +66,10 @@ const block = {
 
 // Статистика
 const stats = ref([
-  { label: 'лифтов', value: 450  },
-  { label: 'жилых домов', value: 175   },
-  { label: 'ежедневный охват аудитории', value: 45000 },
-  { label: 'ежемесячный охват аудитории', value: 1350000 },
+  { label: 'лифтов', value: 600  },
+  { label: 'жилых домов', value: 225   },
+  { label: 'ежедневный охват аудитории', value: 55000 },
+  { label: 'ежемесячный охват аудитории', value: 1650000 },
 ]);
 
 // Форматирование статистики (анимация чисел)
